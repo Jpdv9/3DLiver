@@ -13,7 +13,7 @@ const Quiz = () => {
         <div>
             <h1>Quiz</h1>
             <span>Progreso del quiz: {quiz.percentageQuizCompleted} % </span>
-            <button onClick={handleQuizNext}>seguiente</button>
+            <button onClick={handleQuizNext}>siguiente</button>
         </div>
     )
 }
