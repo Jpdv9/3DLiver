@@ -26,12 +26,25 @@ export default function FattyLiver() {
               ? '/modelos/fattyliver/healthy-liver.glb'
               : '/modelos/fattyliver/early-fatty-liver.glb'
           }
-          scale={0.09} // <--- Más grande
+          scale={0.09}
         />
         <p className="model-instructions">
           🖱 Usa el mouse para explorar el modelo 3D:
           <br />• Haz clic y arrastra para rotar <br />• Usa scroll para hacer zoom <br />• Haz clic derecho para mover la vista
         </p>
+        <div className="scroll-container">
+  <button
+    className="scroll-button"
+    onClick={() => {
+      const section = document.getElementById('lecciones')
+      if (section) section.scrollIntoView({ behavior: 'smooth' })
+    }}
+  >
+    Ir a las lecciones ⬇
+  </button>
+</div>
+  
+
         <section className="lesson-section" id="lecciones">
   <h3>¿Qué es el hígado graso?</h3>
   <p>
