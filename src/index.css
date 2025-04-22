@@ -1,5 +1,9 @@
-html,
-body,
+html, body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+  
 #root {
     margin: 0;
     padding: 0;
