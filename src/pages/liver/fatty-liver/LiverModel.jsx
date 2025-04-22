@@ -7,13 +7,13 @@ function Model({ path }) {
   return <primitive object={scene} />;
 }
 
-export default function LiverModel({ modelPath }) {
-  return (
-    <Canvas style={{ height: '600px' }}>
-      <ambientLight />
-      <directionalLight position={[2, 2, 5]} />
-      <OrbitControls />
-      <Model path={modelPath} />
-    </Canvas>
-  );
-}
+  export default function LiverModel({ modelPath }) {
+    return (
+      <Canvas style={{ height: '400px' }}>
+        <ambientLight />
+        <directionalLight position={[2, 2, 5]} />
+        <OrbitControls />
+        <Model path={modelPath} />
+      </Canvas>
+    );
+  }
