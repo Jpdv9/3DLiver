@@ -7,7 +7,6 @@ import { HiLightBulb } from "react-icons/hi";
 import { FaEnvelope } from "react-icons/fa";
 import { CiCircleInfo, CiSearch } from "react-icons/ci";
 import { IoArrowBack, IoChevronDown, IoChevronUp } from "react-icons/io5";
-
 import './Header.css';
 
 const Header = () => {
