@@ -1,0 +1,102 @@
+.main-content-area {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: #F8F8F8;
+}
+
+.stats-section {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 150px;
+    min-height: 200px;
+}
+
+.stat-card h3 {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #007491;
+}
+
+.model-display-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+    height: 400px;
+    background-color: #E0E0E0;
+    border-radius: 8px;
+    box-shadow:  0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.liver-model-placeholder {
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.disease-cards-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.disease-cards-section h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.disease-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    flex: 1;
+    min-width: 150px;
+    min-height: 200px;
+}
+
+.disease-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.disease-card p {
+    margin: 0;
+    padding-top: 60px;
+    font-size: 1.1rem;
+    color: #333;
+}

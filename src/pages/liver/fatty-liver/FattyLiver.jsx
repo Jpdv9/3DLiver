@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import LiverModel from './LiverModel'
+import LiverModel from '../LiverModel'
 import './FattyLiver.css'
 
 export default function FattyLiver() {
