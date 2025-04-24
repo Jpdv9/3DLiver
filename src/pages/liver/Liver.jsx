@@ -38,10 +38,10 @@ const Liver = () => {
                 <h2>Haz click sobre la tarjeta para aprender más sobre esa enfermedad</h2>
                 <div className="cards-grid">
                     <div className="disease-card">
-                        <p>Hígado Sano</p>
+                        <p>Hepatitis Viral</p>
                     </div>
                     <div className="disease-card">
-                         <p>Cirrosis Viral</p>
+                         <p>Cirrosis hepática</p>
                     </div>
                      <div className="disease-card">
                          <p>Cáncer de Hígado</p>
