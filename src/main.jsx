@@ -26,12 +26,11 @@ createRoot(document.getElementById('root')).render(
         <Route path='contacto' element={<Contact/>}/>
         <Route path='recursos' element={<Resources/>}/>
         <Route path='sobre-nosotros' element={<AboutUs/>}/>
-        <Route path='higado' element = {<Liver/>}>
-          <Route path='cancer-higado' element = {<LiverCancer/>}/>
-          <Route path='hepatitis-viral' element = {<ViralHepatitis/>}/>
-          <Route path='cirrosis-hepatica' element = {<LiverCirrhosis/>}/>
-          <Route path='higado-graso' element = {<FattyLiver/>}/>
-        </Route>
+        <Route path='higado' element = {<Liver/>}/>
+        <Route path='higado/cancer-higado' element = {<LiverCancer/>}/>
+        <Route path='higado/hepatitis-viral' element = {<ViralHepatitis/>}/>
+        <Route path='higado/cirrosis-hepatica' element = {<LiverCirrhosis/>}/>
+        <Route path='higado/higado-graso' element = {<FattyLiver/>}/>
       </Routes>
     </Layout>
   </BrowserRouter>

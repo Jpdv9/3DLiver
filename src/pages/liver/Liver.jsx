@@ -29,7 +29,7 @@ const Liver = () => {
             {/* Sección Central con el Modelo 3D */}
             <div className="model-display-section">
                 <div className="liver-model-placeholder">
-                    <LiverModel modelPath={'/modelos/fattyliver/healthy-liver.glb'}/>
+                    <LiverModel modelPath={'/modelos/Liver/healthy-liver.glb'}/>
                 </div>
             </div>
 
@@ -37,20 +37,21 @@ const Liver = () => {
             <div className="disease-cards-section">
                 <h2>Haz click sobre la tarjeta para aprender más sobre esa enfermedad</h2>
                 <div className="cards-grid">
-                    <div className="disease-card">
+                    <div className="disease-card" onClick={() => {window.location.href = '/higado/hepatitis-viral'}}>
                         <p>Hepatitis Viral</p>
                     </div>
-                    <div className="disease-card">
+                    <div className="disease-card" onClick={() => {window.location.href ='/higado/cirrosis-hepatica'}}>
                          <p>Cirrosis hepática</p>
                     </div>
-                     <div className="disease-card">
+                     <div className="disease-card" onClick={() => {window.location.href = '/higado/cancer-higado'}}>
                          <p>Cáncer de Hígado</p>
                     </div>
-                    <div className="disease-card">
+                    <div className="disease-card" onClick={() => {window.location.href = '/higado/higado-graso'}}>
                          <p>Hígado Graso</p>
                     </div>
                 </div>
             </div>
+            <Outlet />
         </div>
     );
 }

@@ -32,9 +32,9 @@ function Model({ path }) {
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, -5]} intensity={0.5} color="#ffffff" />
         <OrbitControls
-          enableZoom={true}
+          enableZoom={false}
           enablePan={true}
-          enableRotate={true}
+          enableRotate={false}
           autoRotate={false}
           minDistance={3} 
           maxDistance={3}
