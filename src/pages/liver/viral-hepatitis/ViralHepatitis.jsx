@@ -23,7 +23,7 @@ export default function ViralHepatitis()  {
                     modelPath={
                         isHealthy
                             ? '/modelos/Liver/healthy-liver.glb'
-                            : '/modelos/viral-hepatitis/liverHepatitis.glb'
+                            : '/modelos/hepatitis/HepatitsLiver.glb'
                     }
                     scale={0.09}
                 />
