@@ -31,7 +31,7 @@ const Home = () => {
 
             {/* Bottom White Section */}
             <div className='bottom-section'>
-                <h2> Otas cosas </h2>
+                <h2> Mas cosas pronto... </h2>
                 <p> colocar mas cosas, mas adelante </p>
             </div>
         </div>

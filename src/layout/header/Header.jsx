@@ -10,7 +10,7 @@ import { IoArrowBack, IoChevronDown, IoChevronUp } from "react-icons/io5";
 import './Header.css';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
 
   // Abrir el menu
