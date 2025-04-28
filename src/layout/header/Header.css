@@ -1,5 +1,5 @@
 :root {
-  --sidebar-bg: #6085A2;
+  --sidebar-bg: #2a5c82;
   --sidebar-active: #212936;
   --accent-blue: #3498db;
   --text-light: #ffffff;
@@ -78,7 +78,7 @@ body {
 }
 
 .sidebar-button:hover {
-  background-color: #95AEC1;
+  background-color: #95aec1;
   box-shadow: 0 2px 5px 5px rgba(0, 0, 0, 0.05);
   color: #CAD7E0;
 }
@@ -143,7 +143,7 @@ body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
-  background-color: #95AEC1;
+  background-color: #95aec1;
 }
 
 .submenu.open {
@@ -172,7 +172,7 @@ body {
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: rgb(51, 51, 51);;
+  color: #ffffff;
   text-decoration: none;
   margin: 0.25rem 0;
   transition: all 0.2s ease;

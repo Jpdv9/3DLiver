@@ -7,7 +7,7 @@
 
 .hepatitis-title {
     font-size: 2rem;
-    color: #00586F;
+    color: #2a5c82;
     margin-bottom: 1.5rem;
     font-weight: bold;
 }
@@ -19,7 +19,7 @@
 }
 
 .hepatitis-toggle-button {
-    background-color: #007491;
+    background-color: #2a5c82;
     color: whitesmoke;
     padding: 0.8rem 1.5rem;
     border: none;
@@ -36,7 +36,7 @@
 }
 
 .hepatitis-scroll-button {
-    background-color: #007491;
+    background-color: #2a5c82;
     color: whitesmoke;
     padding: 0.8rem 1.5rem;
     border: none;
@@ -47,7 +47,7 @@
 }
 
 .hepatitis-scroll-button:hover {
-    background-color: #00586F;
+    background-color: #212936;
 }
 
 .hepatitis-model-wrapper {
@@ -75,7 +75,7 @@
 
 .hepatitis-lesson-section h3 {
     font-size: 1.8rem;
-    color: #00586F;
+    color: #212936;
     margin-bottom: 1.5rem;
     text-align: center;
 }
