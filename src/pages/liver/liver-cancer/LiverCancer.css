@@ -1,0 +1,110 @@
+.liver-cancer-container {
+    padding: 2rem;
+    text-align: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+  }
+  
+  .titulo {
+    font-size: 2rem;
+    color: #2a5c82;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .toggle-button {
+    background-color: #2a5c82;
+    color: whitesmoke;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: large;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .scroll-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+  
+  .scroll-button {
+    background-color: #2a5c82;
+    color: whitesmoke;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: large;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .scroll-button:hover {
+    background-color: #212936;
+  }
+  
+  
+  
+  .toggle-button:hover {
+    background-color: #212936;
+  }
+  
+  .model-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .model-instructions {
+    margin-top: 1rem;
+    color: #2b3133;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .cancer-lesson-section {
+    background-color: #f0f4f8;
+    padding: 3rem 2rem;
+    text-align: left;
+    max-width: 900px;
+    margin: 3rem auto 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .cancer-lesson-section h3 {
+    font-size: 1.8rem;
+    color: #2a5c82;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .lesson-block {
+    margin-top: 2rem;
+  }
+  
+  .lesson-block h4 {
+    font-size: 1.4rem;
+    color: #2a5c82;
+    margin-bottom: 0.5rem;
+  }
+  
+  .lesson-block p,
+  .lesson-block ul {
+    font-size: medium;
+    color: #2b3133;
+    line-height: 1.6;
+  }
+  
+  .lesson-block ul {
+    padding-left: 1.2rem;
+    list-style-type: disc;
+  }
+  

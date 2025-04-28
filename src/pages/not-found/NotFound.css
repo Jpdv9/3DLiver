@@ -29,7 +29,7 @@
   
 .error-title {
     font-size: 2.5rem;
-    color: #6085A2;
+    color: #95AEC1;
     margin-top: 50px;
     margin-bottom: 25px;
 }
@@ -59,7 +59,7 @@
 }
   
 .available-links a {
-    color: #6085A2;
+    color: #95AEC1;
     text-decoration: none;
     transition: color 0.2s;
     padding-left: 10px;

@@ -42,7 +42,7 @@ const Header = () => {
           </button>
         </div>
         <div className='sidebar-logo'>
-          <img src="/imagenes/logo/3DLIVER Logotipo.svg" alt="3DLIVER logo" />
+          <img src="/imagenes/logo/3DLIVER Logotipo Blanco.svg" alt="3DLIVER logo" />
         </div>
         <nav className='sidebar-menu'>
           <NavLink to="/" className="sidebar-item" activeClassName="active">
