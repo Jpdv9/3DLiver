@@ -1,0 +1,89 @@
+.home-container {
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.top-section {
+    width: 100%;
+    min-height: 55vh;
+    background: #6085A2; 
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-section {
+    width: 100%;
+    background: #ffffff;
+    padding: 2rem;
+
+}
+
+
+.home-content {
+
+    max-width: 1500px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30rem;
+
+}
+
+.home-text {
+    text-align: left;
+    max-width: 600px;
+    padding-right: 2rem;
+    color: white; 
+    
+}
+
+.home-text img {
+    max-width: 90%; 
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.home-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.learn-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    width: 40%;
+    height: 20%;
+    background-color: #2a5c82;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.learn-button:hover {
+    background-color: #212936;
+}
+
+.liver-container {
+    max-width: 500px;
+    height: 500px; 
+    position: relative;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-section h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.bottom-section p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
