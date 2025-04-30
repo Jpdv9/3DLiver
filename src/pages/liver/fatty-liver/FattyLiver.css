@@ -7,7 +7,7 @@
 
 .titulo {
   font-size: 2rem;
-  color: #00586f;
+  color: #2a5c82;
   margin-bottom: 1.5rem;
   font-weight: bold;
 }
@@ -19,7 +19,7 @@
 }
 
 .toggle-button {
-  background-color: #007491;
+  background-color: #2a5c82;
   color: whitesmoke;
   padding: 0.8rem 1.5rem;
   border: none;
@@ -36,7 +36,7 @@
 }
 
 .scroll-button {
-  background-color: #007491;
+  background-color: #2a5c82;
   color: whitesmoke;
   padding: 0.8rem 1.5rem;
   border: none;
@@ -47,13 +47,13 @@
 }
 
 .scroll-button:hover {
-  background-color: #00586f;
+  background-color: #212936;
 }
 
 
 
 .toggle-button:hover {
-  background-color: #00586f;
+  background-color: #212936;
 }
 
 .model-wrapper {
@@ -81,7 +81,7 @@
 
 .lesson-section h3 {
   font-size: 1.8rem;
-  color: #00586f;
+  color: #2a5c82;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -92,7 +92,7 @@
 
 .lesson-block h4 {
   font-size: 1.4rem;
-  color: #007491;
+  color: #2a5c82;
   margin-bottom: 0.5rem;
 }
 
