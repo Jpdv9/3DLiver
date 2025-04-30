@@ -12,6 +12,17 @@ function Model({ path }) {
     }
   });
 
+  useEffect(() => {
+    if(scene) {
+      scene.traverse((child) => {
+        if(child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      })
+    }
+  }, [scene])
+
   return (
     <Center>
       <primitive
@@ -26,11 +37,32 @@ function Model({ path }) {
 
   export default function LiverModelHome({ modelPath }) {
     return (
-      <Canvas style={{ width: '800px', height: '400px' }}>
+      <Canvas 
+        style={{ width: '800px', height: '400px' }}
+        shadows
+      >
         <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={25}/>
         <ambientLight intensity={0.7}/>
-        <directionalLight position={[5, 5, 5]} intensity={1} />
-        <directionalLight position={[-5, -5, -5]} intensity={0.5} color="#ffffff" />
+        <directionalLight 
+          position={[5, 5, 5]} 
+          intensity={1} 
+          castShadow
+          shadow-mapSize-witdh={2048}
+          shadow-mapSize-height={2048}
+        />
+        <directionalLight 
+          position={[-5, -5, -5]} 
+          intensity={0.5} 
+          color="#ffffff" 
+        />
+        <mesh
+          receiveShadow
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, -0.5, 0]}
+        >
+          <planeGeometry args={[5, 5]} />
+          <meshStandardMaterial color="#e0e0e0" />
+        </mesh>
         <OrbitControls/>
         <Model path={modelPath} />
       </Canvas>
