@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router';
+import { Link } from 'react-router-dom'
 import LiverModel from './LiverModel'
 import './Liver.css';
 
@@ -6,6 +7,12 @@ const Liver = () => {
 
     return (
         <div className="main-content-area">
+            {/* Migaja de pan*/}
+            <nav className='breadcrumbs'>
+                <Link to="/">Inicion /</Link>
+                <span>Enfermedades</span>
+            </nav>
+
             {/* Sección de Estadísticas/Tarjetas Superiores */}
             <div className="stats-section">
                 <div className="stat-card">

@@ -20,19 +20,18 @@ h1{
 }
 
 span{
-    font-size: large;
     color: #2b3133;
 }
 
 p {
     font-size: medium;
     color: #2b3133;
+    line-height: 1.5;
     /*color: #2b3133;*/
 }
 
 a {
     color: whitesmoke;
-    font-size: medium;
     text-decoration: none;
 }
 

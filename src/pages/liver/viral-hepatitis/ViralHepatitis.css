@@ -5,6 +5,24 @@
     background-color: #FFFFFF;
 }
 
+.hepatitis-breadcrumbs {
+    display: flex;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.hepatitis-breadcrumbs a {
+    color: #1976D2;
+    text-decoration: none;
+    padding-left: 0.5rem;
+}
+
+.hepatitis-breadcrumbs span {
+    color: #333;
+    padding-left: 0.5rem;
+}
+
 .hepatitis-title {
     font-size: 2rem;
     color: #2a5c82;
@@ -14,9 +32,11 @@
 
 .hepatitis-toggle-container {
     display: flex;
+    padding-top: 20px;
     justify-content: center;
     margin-bottom: 1rem;
 }
+
 
 .hepatitis-toggle-button {
     background-color: #2a5c82;
@@ -32,35 +52,108 @@
 .hepatitis-scroll-container {
     display: flex;
     justify-content: center;
+
     margin: 1.5rem 0;
 }
 
 .hepatitis-scroll-button {
-    background-color: #2a5c82;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(45deg, #2a5c82, #2a5c82);
+    border: none;
+    font-weight: bold;
     color: whitesmoke;
     padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: large;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+
 }
 
 .hepatitis-scroll-button:hover {
-    background-color: #212936;
+    background: linear-gradient(45deg, #212936, #212936);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hepatitis-scroll-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hepatitis-scroll-button svg {
+    font-size: 1.3em; 
+    vertical-align: middle; 
 }
 
 .hepatitis-model-wrapper {
     max-width: 900px;
     margin: 0 auto;
     padding: 1rem;
+    position: relative;
 }
 
-.hepatitis-model-instructions {
-    margin-top: 1rem;
-    color: #2B3133;
-    font-size: 0.95rem;
+.hepatitis-instructions-help-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.hepatitis-help-icon {
+    position: relative;
+    z-index: 11;
+    pointer-events: all;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2a5c82;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+    padding: 0;
+    transition: transform 0.2s ease-in-out;
+}
+
+.hepatitis-help-icon:hover {
+    transform: scale(1.1);
+}
+
+.hepatitis-instructions-popover {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: #2a5c82;
+    color: whitesmoke;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+    z-index: 9;
+    font-size: 0.9em;
     line-height: 1.5;
+    text-align: left;
+    pointer-events: all;
+}
+
+.hepatitis-instructions-popover p {
+    margin: 0;
+    color: inherit;
 }
 
 .hepatitis-lesson-section {
@@ -79,4 +172,112 @@
     margin-bottom: 1.5rem;
     text-align: center;
 }
+
+.hepatitis-tabs-header {
+    display: flex;
+    border-bottom: 2px solid #333;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    justify-content: center;
+    padding-bottom: 5px;
+
+}
+
+.hepatitis-tabs-header::-webkit-scrollbar {
+    height: 8px;
+}
+
+.hepatitis-tabs-header::-webkit-scrollbar-track {
+    background: #F1F1F1;
+    border-radius: 10px;
+}
+
+.hepatitis-tabs-header::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.hepatitis-tabs-header::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.hepatitis-tab-button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 5px solid transparent;
+    background-color: transparent;
+    font-size: 1em;
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease, font-weight 0.3s ease;
+    color: #2b3133;
+    flex-shrink: 0;
+    outline: none;
+}
+
+.hepatitis-tab-button:hover {
+    color: #fff;
+    border-bottom-color: #a0a0a0;
+}
+
+.hepatitis-tab-button.active {
+    color: #2a5c82;
+    border-bottom-color: #2a5c82;
+    font-weight: bold;
+}
+
+.hepatitis-tab-content {
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hepatitis-tab-pane {
+    padding-top: 10px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.hepatitis-tab-pane h3 {
+    font-size: 1.5rem;
+    color: #212936;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.hepatitis-tab-pane p {
+    font-size: medium;
+    color: #212936;
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.hepatitis-tab-pane ul {
+    font-size: medium;
+    color: #212936;
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    list-style-type: disc;
+    margin-bottom: 1em;
+}
+
+.hepatitis-tab-pane li {
+    margin-bottom: 0.5em;
+}
+
+
+  
 

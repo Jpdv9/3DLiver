@@ -4,6 +4,24 @@
     background-color: #F8F8F8;
 }
 
+.breadcrumbs {
+    display: flex;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.breadcrumbs a {
+    color: #1976D2;
+    text-decoration: none;
+    padding-left: 0.5rem;
+}
+
+.breadcrumbs span {
+    color: #333;
+    padding-left: 0.5rem;
+}
+
 .stats-section {
     display: flex;
     justify-content: space-around;
