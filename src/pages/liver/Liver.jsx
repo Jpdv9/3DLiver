@@ -36,7 +36,11 @@ const Liver = () => {
             {/* Sección Central con el Modelo 3D */}
             <div className="model-display-section">
                 <div className="liver-model-placeholder">
-                    <LiverModel modelPath={'/modelos/Liver/healthy-liver.glb'}/>
+                    <LiverModel 
+                        modelPath={'/modelos/Liver/healthy-liver.glb'}
+                        width={800}
+                        height ={400}
+                    />
                 </div>
             </div>
 

@@ -35,13 +35,13 @@ function Model({ path }) {
   );
 }
 
-  export default function LiverModelHome({ modelPath }) {
+  export default function LiverModelHome({ modelPath, width = '1200px', height = '800px' }) {
     return (
       <Canvas 
-        style={{ width: '800px', height: '400px' }}
+        style={{ width, height }}
         shadows
       >
-        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={25}/>
+        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={20}/>
         <ambientLight intensity={0.7}/>
         <directionalLight 
           position={[5, 5, 5]} 
