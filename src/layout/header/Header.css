@@ -1,201 +1,313 @@
-:root {
-  --sidebar-bg: #2a5c82;
-  --sidebar-active: #212936;
-  --accent-blue: #3498db;
-  --text-light: #ffffff;
-  --text-dark: #333333;
-  --border-color: #e1e1e1;
-  --header-height: 70px;
-  --sidebar-width: 250px
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Roboto', 'Segoe UI', sans-serif;
-  background-color: #f5f7fa;
-}
-
-.app-container{
-  display: flex;
-  min-width: 100vh;
-}
-
-/* Header estilos*/
-
-.main-container{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  transition: margin-left 0.3s ease;
-  margin-left: 0;
-}
-
-.main-container.menu-open {
-  margin-left: var(--sidebar-width);
-}
-
 .header {
-  height: var(--header-height);
-  background-color: #ffffff;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 5rem ;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    height: var(--header-height);
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: var(--header-padding-right);
+    padding-left: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative; 
+    top: auto;
+    z-index: auto;
 }
 
 .header-left {
-  padding-left: 10px;
-  display: flex;
-  align-items: center;
-  gap: 50px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
 
 .home-header-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 .logo-header {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
 
 .logo-text-header {
-  width: 68px;
-  height: 68px;
-  margin-left: 0.5rem;
-
+    width: 68px;
+    height: 68px;
+    margin-left: 0.5rem;
 }
 
 .hamburger-menu {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 18px;
-  padding: 0 1rem;
-  margin-left: 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 18px;
+    padding: 0;
+    margin-left: 0;
+    width: 25px;
 }
 
 .bar {
-  width: 25px;
-  height: 3px;
-  background-color: var(--text-dark);
-  margin: 2px 0;
-  border-radius: 3px;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-dark);
+    margin: 2px 0;
+    border-radius: 3px;
 }
 
 .search-container {
-  display: flex;
-  align-items: center;
-  background-color: #f5f7fa;
-  border-radius: 20px;
-  padding: 0.5rem;
-  height: 2.5rem;
+    display: flex;
+    align-items: center;
+    background-color: #f5f7fa;
+    border-radius: 20px;
+    padding: 0.5rem;
+    height: 2.5rem;
+    flex-grow: 1;
+    max-width: 400px;
+    margin: 0 1rem;
 }
 
 .search-input {
-  border: none;
-  background: transparent;
-  padding: 0.5rem;
-  outline: none;
-  width: 250px;
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    outline: none;
+    width: 100%;
+    min-width: 100px;
 }
 
 .search-button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  height: 35px;
-  width: 35px;
-  padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    height: 35px;
+    width: 35px;
+    padding: 0;
+    flex-shrink: 0;
 }
 
 .search-icon {
-  font-size: 1.2rem;
-  color: #000;
+    font-size: 1.2rem;
+    color: #000;
 }
+
 .search-button:hover {
-  background-color: #CAD7E0;
+    background-color: #CAD7E0;
 }
 
 .user-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 5.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .notification-container {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  border-right: 0.5px solid var(--border-color);
-  box-shadow: 4px 0.5px 3px rgba(0, 0, 0, 0.09);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-right: 0.5px solid var(--border-color);
+    box-shadow: 4px 0.5px 3px rgba(0, 0, 0, 0.02);
 }
 
 .notification-button {
-  background: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-  height: 35px;
-  width: 35px;
-  padding: 0;
-  margin-right: 2.5rem;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    height: 35px;
+    width: 35px;
+    padding: 0;
+    margin-right: 0.5rem;
 }
 
 .notification-icon {
-  font-size: 1.6rem;
-  color: black;
-  margin: 0;
-  padding: 0;
-
+    font-size: 1.6rem;
+    color: black;
 }
 
 .notification-button:hover {
-  background-color: #CAD7E0;
+    background-color: #CAD7E0;
 }
 
-
 .user-profile {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .user-info {
-  display: flex;
-  align-items: center;
-  gap:  2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .user-name {
-  font-weight: 2000;
-  color: var(--text-dark);
-  padding: 10px;
-  margin: 0;
-
+    font-weight: bold;
+    color: var(--text-dark);
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .user-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #CAD7E0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #CAD7E0;
+    flex-shrink: 0;
+}
+
+/* Responsive  */
+
+/* Para tablets y dispositivos con ancho de hasta 1024px */
+@media (max-width: 1024px) {
+    :root {
+        --header-padding-right: 2rem;
+    }
+
+    .header-left {
+        gap: 20px;
+    }
+
+    .logo-text-header {
+        width: 50px;
+        height: 50px;
+    }
+
+    .search-container {
+        max-width: 300px;
+        margin: 0 0.8rem;
+    }
+
+    .user-container {
+        gap: 1rem;
+    }
+
+    .notification-container {
+        padding: 0 0.5rem;
+    }
+
+    .user-info {
+        gap: 0.5rem;
+    }
+
+    .user-name {
+        font-size: 0.9em;
+    }
+}
+
+/* Para tablets en modo retrato y dispositivos con ancho de hasta 768px */
+@media (max-width: 768px) {
+    :root {
+        --header-height: 60px;
+        --header-padding-right: 1rem;
+    }
+
+    .header {
+        padding-left: 0.8rem;
+    }
+
+    .header-left {
+        gap: 15px;
+    }
+
+    .logo-header {
+        width: 25px;
+        height: 25px;
+    }
+
+    .logo-text-header {
+        width: 40px;
+        height: 40px;
+        margin-left: 0.3rem;
+    }
+
+    .search-container {
+        display: none; /* Oculta la barra de búsqueda en pantallas pequeñas */
+    }
+
+    .user-container {
+        gap: 0.8rem;
+        padding-right: 0.5rem;
+    }
+
+    .notification-container {
+        border-right: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .notification-button {
+        margin-right: 0.2rem;
+    }
+
+    .notification-icon {
+        font-size: 1.4rem;
+    }
+
+    .user-name {
+        display: none; 
+    }
+
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Para teléfonos móviles y dispositivos con ancho de hasta 480px */
+@media (max-width: 480px) {
+    :root {
+        --header-height: 55px;
+    }
+
+    .header {
+        padding-left: 0.5rem;
+    }
+
+    .header-left {
+        gap: 10px;
+    }
+
+    .logo-header {
+        width: 22px;
+        height: 22px;
+    }
+
+    .logo-text-header {
+        width: 35px;
+        height: 35px;
+    }
+
+    .hamburger-menu {
+        height: 16px;
+    }
+
+    .bar {
+        width: 20px;
+        height: 2px;
+    }
+
+    .notification-button {
+        height: 30px;
+        width: 30px;
+    }
+
+    .notification-icon {
+        font-size: 1.2rem;
+    }
+
+    .user-avatar {
+        width: 25px;
+        height: 25px;
+    }
 }

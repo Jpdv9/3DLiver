@@ -1,10 +1,18 @@
+/* Contenedor principal responsivo */
+.liver-model-container {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
 /* Estilos para las instrucciones HTML en 3D */
 .html-3d-instructions {
   pointer-events: auto;
 }
 
 .instructions-3d-container {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   padding: 16px;
   width: 280px;
@@ -13,6 +21,13 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-family: "Arial", sans-serif;
   color: #333;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+.instructions-tablet {
+  width: 240px;
+  padding: 12px;
 }
 
 .instructions-3d-title {
@@ -22,6 +37,10 @@
   text-align: center;
   border-bottom: 2px solid #eee;
   padding-bottom: 8px;
+}
+
+.instructions-tablet .instructions-3d-title {
+  font-size: 1rem;
 }
 
 .instructions-3d-content {
@@ -36,6 +55,10 @@
   line-height: 1.4;
 }
 
+.instructions-tablet .instructions-3d-content p {
+  font-size: 12px;
+}
+
 .instructions-3d-list {
   margin: 0;
   padding: 0;
@@ -48,107 +71,127 @@
   line-height: 1.4;
 }
 
-.instructions-3d-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.instructions-3d-button {
-  background-color: #2a5c82;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex: 1;
-}
-
-.instructions-3d-button:hover {
-  background-color: #1e4562;
-}
-
-.instructions-3d-link {
-  background-color: #f0f0f0;
-  color: #2a5c82;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  text-align: center;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.instructions-3d-link:hover {
-  background-color: #e0e0e0;
-  text-decoration: underline;
-}
-
-.instructions-3d-help {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 10px;
-  margin-top: 8px;
-}
-
-.instructions-3d-help h2 {
-  font-size: 14px;
-  margin: 0 0 8px 0;
-  color: #2a5c82;
-}
-
-.instructions-3d-control-group {
-  margin-top: 8px;
-}
-
-.instructions-3d-control-group label {
-  display: block;
-  font-size: 13px;
+.instructions-tablet .instructions-3d-list li {
+  font-size: 12px;
   margin-bottom: 4px;
 }
 
-.instructions-3d-slider {
-  width: 100%;
-  height: 6px;
+/* Información del Hígado - Responsiva */
+.liver-message {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 15px;
+  border-radius: 6px;
+  color: #2a5c82;
+  box-shadow: 0 2px 8px rgba(42, 92, 130, 0.2);
+  border: 1px solid #2a5c82;
+  backdrop-filter: blur(5px);
+  transform: scale(0.8);
+  max-width: 200px;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  animation: fadeIn 0.3s ease-out;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-/* Estilos para los controles de posición */
-.position-controls {
-  width: 600px;
+.liver-message-mobile {
+  transform: scale(0.6);
+  max-width: 150px;
+  padding: 8px 10px;
 }
 
-.position-sliders {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-  background-color: #f5f5f5;
-  padding: 12px;
-  border-radius: 8px;
+.liver-message h2 {
+  color: #2a5c82;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  font-weight: 600;
 }
 
-.position-control {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.liver-message-mobile h2 {
+  font-size: 12px;
+  margin: 0 0 6px 0;
 }
 
-.position-control label {
-  font-size: 13px;
-  font-weight: bold;
+.liver-message p {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+  color: #456f94;
+  font-weight: 500;
 }
 
-.position-control input {
-  width: 100%;
-  height: 6px;
+.liver-message-mobile p {
+  font-size: 10px;
 }
 
+/* Add mobile instructions styles */
+.instructions-mobile {
+  width: 80px !important;
+  padding: 4px !important;
+  font-size: 6px !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+}
 
+.instructions-mobile .instructions-3d-title {
+  font-size: 7px !important;
+  margin-bottom: 2px !important;
+  padding-bottom: 1px !important;
+  border-bottom: 1px solid #eee !important;
+}
+
+.instructions-mobile .instructions-3d-content {
+  gap: 2px !important;
+}
+
+.instructions-mobile .instructions-3d-content p {
+  font-size: 6px !important;
+  line-height: 1.1 !important;
+  margin: 0 !important;
+}
+
+.instructions-mobile .instructions-3d-list {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.instructions-mobile .instructions-3d-list li {
+  font-size: 5px !important;
+  margin-bottom: 1px !important;
+  line-height: 1.0 !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+}
+
+/* Media queries para mayor control responsivo */
+@media (max-width: 768px) {
+  .liver-model-container {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .liver-model-container {
+    padding: 4px;
+  }
+}
+
+/* Evitar overflow horizontal */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
