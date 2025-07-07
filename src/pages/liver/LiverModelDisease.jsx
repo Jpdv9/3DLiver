@@ -80,7 +80,7 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
       <primitive
         ref={modelRef}
         object={scene}
-        scale={getModelScale()}
+        scale={path.includes("chemo-treatment.glb") ? [0.7, 0.7, 0.7] : getModelScale()}
         position={modelPosition}
         onClick={() => setShowMessage(true)}
         onPointerMissed={() => setShowMessage(false)}
