@@ -1,7 +1,7 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 import React, { useState } from 'react'
-import LiverModel from './LiverModel'
+import LiverModel from '../LiverModel'
 import './FattyLiver.css'
 =======
 =======

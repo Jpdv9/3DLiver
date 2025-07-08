@@ -1,191 +1,313 @@
 .header {
-    background: #ffffff;
-    padding: 1rem;
+    height: var(--header-height);
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  /* Logo */
-  .logo-container {
+    justify-content: space-between;
+    padding-right: var(--header-padding-right);
+    padding-left: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative; 
+    top: auto;
+    z-index: auto;
+}
+
+.header-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
-  }
-  
-  .logo-img {
-    width: 100px;
-    height: auto;
-  }
-  
-  .logo-text {
-    color: #2a5c82;
-    font-size: 1.4rem;
-    font-weight: 600;
-    font-family: 'Roboto', sans-serif;
-  }
+    gap: 50px;
+}
 
-  /* Navegacion */
-
-  .top-navigation-main {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    gap: .5rem;
-    left: inherit;
-    padding: 0;
-    position: static;
-    top: inherit;
-    z-index: inherit;
-  }
-
-  .nav-container {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    position: relative;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-  
-  .nav-link {
-    color: #333;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  
-  .nav-link:hover,
-  .nav-link.active {
-    background: #f0f8ff;
-    color: #2a5c82;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    min-width: 200px;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-    flex-direction: column;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: flex;
-  }
-  
-  .dropdown-link {
-    padding: 0.8rem 1rem;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
-  
-  .dropdown-link:hover {
-    background: #f8f9fa;
-  }
-
-  .auth-buttons {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .btn {
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  
-  .login-btn {
-    color: #2a5c82;
-    border: 1px solid #2a5c82;
-  }
-  
-  .login-btn:hover {
-    background: #2a5c82;
-    color: #fff;
-  }
-  
-  .register-btn {
-    background: #2a5c82;
-    color: #fff;
-  }
-  
-  .register-btn:hover {
-    background: #1a435e;
-  }
-  
-  /* Ícono hamburger (Responsive) */
-  .hamburger {
-    display: none;
+.home-header-button {
+    background: none;
+    border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-header {
+    width: 30px;
+    height: 30px;
+}
+
+.logo-text-header {
+    width: 68px;
+    height: 68px;
+    margin-left: 0.5rem;
+}
+
+.hamburger-menu {
+    cursor: pointer;
+    display: flex;
     flex-direction: column;
-    gap: 4px;
-  }
-  
-  .bar {
+    justify-content: space-between;
+    height: 18px;
+    padding: 0;
+    margin-left: 0;
+    width: 25px;
+}
+
+.bar {
     width: 25px;
     height: 3px;
-    background: #2a5c82;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  
+    background-color: var(--text-dark);
+    margin: 2px 0;
+    border-radius: 3px;
+}
 
-  .hamburger.active .bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  
-  .hamburger.active .bar:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .hamburger.active .bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-  
-  /*Configuracion para los dispositivos moviles*/
-  @media (max-width: 768px) {
-    .hamburger {
-      display: flex;
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f5f7fa;
+    border-radius: 20px;
+    padding: 0.5rem;
+    height: 2.5rem;
+    flex-grow: 1;
+    max-width: 400px;
+    margin: 0 1rem;
+}
+
+.search-input {
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    outline: none;
+    width: 100%;
+    min-width: 100px;
+}
+
+.search-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    height: 35px;
+    width: 35px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.search-icon {
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.search-button:hover {
+    background-color: #CAD7E0;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.notification-container {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-right: 0.5px solid var(--border-color);
+    box-shadow: 4px 0.5px 3px rgba(0, 0, 0, 0.02);
+}
+
+.notification-button {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    height: 35px;
+    width: 35px;
+    padding: 0;
+    margin-right: 0.5rem;
+}
+
+.notification-icon {
+    font-size: 1.6rem;
+    color: black;
+}
+
+.notification-button:hover {
+    background-color: #CAD7E0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.user-name {
+    font-weight: bold;
+    color: var(--text-dark);
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #CAD7E0;
+    flex-shrink: 0;
+}
+
+/* Responsive  */
+
+/* Para tablets y dispositivos con ancho de hasta 1024px */
+@media (max-width: 1024px) {
+    :root {
+        --header-padding-right: 2rem;
     }
 
-
-    .nav-links,
-    .auth-buttons {
-      display: none;
+    .header-left {
+        gap: 20px;
     }
 
-    .nav-container.active .nav-links,
-    .nav-container.active .auth-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      background: #fff;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      left: 0;
-      padding: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .logo-text-header {
+        width: 50px;
+        height: 50px;
     }
-  }
-  
+
+    .search-container {
+        max-width: 300px;
+        margin: 0 0.8rem;
+    }
+
+    .user-container {
+        gap: 1rem;
+    }
+
+    .notification-container {
+        padding: 0 0.5rem;
+    }
+
+    .user-info {
+        gap: 0.5rem;
+    }
+
+    .user-name {
+        font-size: 0.9em;
+    }
+}
+
+/* Para tablets en modo retrato y dispositivos con ancho de hasta 768px */
+@media (max-width: 768px) {
+    :root {
+        --header-height: 60px;
+        --header-padding-right: 1rem;
+    }
+
+    .header {
+        padding-left: 0.8rem;
+    }
+
+    .header-left {
+        gap: 15px;
+    }
+
+    .logo-header {
+        width: 25px;
+        height: 25px;
+    }
+
+    .logo-text-header {
+        width: 40px;
+        height: 40px;
+        margin-left: 0.3rem;
+    }
+
+    .search-container {
+        display: none; /* Oculta la barra de búsqueda en pantallas pequeñas */
+    }
+
+    .user-container {
+        gap: 0.8rem;
+        padding-right: 0.5rem;
+    }
+
+    .notification-container {
+        border-right: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .notification-button {
+        margin-right: 0.2rem;
+    }
+
+    .notification-icon {
+        font-size: 1.4rem;
+    }
+
+    .user-name {
+        display: none; 
+    }
+
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Para teléfonos móviles y dispositivos con ancho de hasta 480px */
+@media (max-width: 480px) {
+    :root {
+        --header-height: 55px;
+    }
+
+    .header {
+        padding-left: 0.5rem;
+    }
+
+    .header-left {
+        gap: 10px;
+    }
+
+    .logo-header {
+        width: 22px;
+        height: 22px;
+    }
+
+    .logo-text-header {
+        width: 35px;
+        height: 35px;
+    }
+
+    .hamburger-menu {
+        height: 16px;
+    }
+
+    .bar {
+        width: 20px;
+        height: 2px;
+    }
+
+    .notification-button {
+        height: 30px;
+        width: 30px;
+    }
+
+    .notification-icon {
+        font-size: 1.2rem;
+    }
+
+    .user-avatar {
+        width: 25px;
+        height: 25px;
+    }
+}

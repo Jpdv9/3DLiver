@@ -1,15 +1,14 @@
 html, body {
-    height: auto;
-    min-height: 100%;
-    overflow-x: hidden;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
   }
   
 #root {
-    margin: 0;
-    padding: 0;
+    height: 100%;
     width: 100%;
     user-select: none;
-    overflow: hidden;
     font-family: "Roboto", serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -17,22 +16,22 @@ html, body {
 
 h1{
     font-size: xx-large;
-    color: #00586f;
+    color: #2a5c82; 
 }
 
 span{
-    font-size: large;
     color: #2b3133;
 }
 
 p {
     font-size: medium;
     color: #2b3133;
+    line-height: 1.5;
+    /*color: #2b3133;*/
 }
 
 a {
     color: whitesmoke;
-    font-size: medium;
     text-decoration: none;
 }
 
@@ -46,7 +45,7 @@ button {
     outline: none;
     align-items: center;
     justify-content: center;
-    background-color: #007491;
+    background-color: #2a5c82;
     border: none;
     width: 256px;
     height: 54px;
@@ -57,6 +56,6 @@ button {
 }
 
 button:hover {
-    background-color: #00586f;
+    background-color: #212936;
 }
 
