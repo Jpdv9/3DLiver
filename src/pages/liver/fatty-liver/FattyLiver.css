@@ -88,6 +88,7 @@
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .toggle-button {
   background-color: #007491;
   color: whitesmoke;
@@ -98,6 +99,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 =======
+=======
+>>>>>>> Stashed changes
 .fatty-instructions-help-container {
   position: absolute;
   top: 10px;
@@ -107,6 +110,9 @@
   flex-direction: column;
   align-items: flex-end;
   pointer-events: none;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
@@ -132,15 +138,19 @@
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .scroll-button {
   background-color: #007491;
   color: whitesmoke;
   padding: 0.8rem 1.5rem;
 =======
+=======
+>>>>>>> Stashed changes
 .fatty-help-icon:hover {
   background: rgba(255, 255, 255, 1);
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+<<<<<<< Updated upstream
 }
 
 .fatty-instructions-popover {
@@ -269,6 +279,80 @@
   padding-left: 1.2rem;
   list-style-type: disc;
 =======
+.fatty-scroll-button:hover::before {
+  left: 100%;
+>>>>>>> Stashed changes
+=======
+}
+
+.fatty-instructions-popover {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  max-width: 280px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+.fatty-instructions-popover p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.fatty-scroll-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.fatty-scroll-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  border: none;
+  font-weight: 700;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: large;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.fatty-scroll-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+}
+
+.fatty-scroll-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.fatty-scroll-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
 .fatty-scroll-button:hover::before {
   left: 100%;
 >>>>>>> Stashed changes
