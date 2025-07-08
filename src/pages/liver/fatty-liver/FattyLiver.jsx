@@ -1,11 +1,6 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 import React, { useState } from 'react'
 import LiverModel from '../LiverModel'
 import './FattyLiver.css'
-=======
-=======
->>>>>>> Stashed changes
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import LiverModel from "../LiverModel"
@@ -13,10 +8,6 @@ import { IoIosHelpCircleOutline } from "react-icons/io"
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md"
 import "./FattyLiver.css"
 import "../controls.css"
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 export default function FattyLiver() {
   const [isHealthy, setIsHealthy] = useState(false)
