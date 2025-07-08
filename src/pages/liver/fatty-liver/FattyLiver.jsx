@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
 import LiverModel from '../LiverModel'
 import './FattyLiver.css'
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import LiverModel from "../LiverModel"
 import { IoIosHelpCircleOutline } from "react-icons/io"
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md"
-import "./FattyLiver.css"
 import "../controls.css"
 
 export default function FattyLiver() {
