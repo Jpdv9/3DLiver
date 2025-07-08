@@ -1,4 +1,6 @@
-.fatty-liver-container {
+/* FattyLiver.css */
+
+.fatty-container {
   padding: 2rem;
   text-align: center;
   min-height: 100vh;
@@ -48,27 +50,81 @@
   border-radius: 12px;
   font-size: large;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   flex: 1;
-  max-width: 200px;
-  min-width: 120px;
+  max-width: 220px;
+  min-width: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 10px rgba(42, 92, 130, 0.2);
 }
 
-.fatty-toggle-button:hover {
-  background-color: #1e4460;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(42, 92, 130, 0.3);
-}
-
+.fatty-toggle-button:hover,
 .fatty-toggle-button.active {
   background-color: #1e4460;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(30, 68, 96, 0.3);
+}
+
+.button-icon {
+  font-size: 1.2em;
+}
+
+.button-text {
+  color: #fff;
+}
+
+.fatty-scroll-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.fatty-scroll-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  border: none;
+  font-weight: 700;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: large;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.fatty-scroll-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.fatty-scroll-button:hover::before {
+  left: 100%;
+}
+
+.fatty-scroll-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+}
+
+.fatty-scroll-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.scroll-button-icon {
+  font-size: 1.3em;
 }
 
 .fatty-model-wrapper {
@@ -87,20 +143,6 @@
   margin-bottom: 1rem;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-.toggle-button {
-  background-color: #2a5c82;
-  color: whitesmoke;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: large;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-=======
-=======
->>>>>>> Stashed changes
 .fatty-instructions-help-container {
   position: absolute;
   top: 10px;
@@ -110,15 +152,9 @@
   flex-direction: column;
   align-items: flex-end;
   pointer-events: none;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 .fatty-help-icon {
-  position: relative;
-  z-index: 11;
   pointer-events: all;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -130,27 +166,16 @@
   align-items: center;
   cursor: pointer;
   font-size: 1.1rem;
-  font-weight: bold;
   color: #2a5c82;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
   padding: 0;
   transition: transform 0.2s ease-in-out;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-.scroll-button {
-  background-color: #2a5c82;
-  color: whitesmoke;
-  padding: 0.8rem 1.5rem;
-=======
-=======
->>>>>>> Stashed changes
 .fatty-help-icon:hover {
   background: rgba(255, 255, 255, 1);
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-<<<<<<< Updated upstream
 }
 
 .fatty-instructions-popover {
@@ -168,177 +193,143 @@
   animation: fadeIn 0.3s ease;
 }
 
-.fatty-instructions-popover p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
-}
-
-.fatty-scroll-container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-}
-
-.fatty-scroll-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
->>>>>>> Stashed changes
-  border: none;
-  font-weight: 700;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-size: large;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-}
-
-<<<<<<< Updated upstream
-.scroll-button:hover {
-  background-color: #212936;
-}
-
-
-
-.toggle-button:hover {
-  background-color: #00586f;
-}
-
-.model-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-<<<<<<< Updated upstream
-.model-instructions {
-  margin-top: 1rem;
-  color: #2b3133;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.lesson-section {
-  background-color: #f0f4f8;
+.fatty-lesson-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 3rem 2rem;
   text-align: left;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 3rem auto 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.lesson-section h3 {
-  font-size: 1.8rem;
-  color: #2a5c82;
-  margin-bottom: 1.5rem;
-  text-align: center;
+.fatty-mobile-accordion {
+  display: none;
 }
 
-.lesson-block {
-  margin-top: 2rem;
+.fatty-desktop-tabs {
+  display: block;
 }
 
-.lesson-block h4 {
-  font-size: 1.4rem;
-  color: #2a5c82;
-  margin-bottom: 0.5rem;
-}
-
-.lesson-block p,
-.lesson-block ul {
-  font-size: medium;
-  color: #2b3133;
-  line-height: 1.6;
-}
-
-.lesson-block ul {
-  padding-left: 1.2rem;
-  list-style-type: disc;
-=======
-.fatty-scroll-button:hover::before {
-  left: 100%;
->>>>>>> Stashed changes
-=======
-}
-
-.fatty-instructions-popover {
-  position: absolute;
-  top: 60px;
-  right: 20px;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  z-index: 50;
-  max-width: 280px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.3s ease;
-}
-
-.fatty-instructions-popover p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
-}
-
-.fatty-scroll-container {
+.fatty-tabs-header {
   display: flex;
+  border-bottom: 2px solid #333;
+  margin-bottom: 20px;
+  overflow-x: auto;
   justify-content: center;
-  margin: 2rem 0;
+  padding-bottom: 5px;
+  -webkit-overflow-scrolling: touch;
 }
 
-.fatty-scroll-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+.fatty-tab-button {
+  padding: 10px 15px;
+  margin: 0 5px;
   border: none;
-  font-weight: 700;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-size: large;
+  border-radius: 5px;
+  border-bottom: 5px solid transparent;
+  background-color: transparent;
+  font-size: 1em;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease;
+  color: #2b3133;
+  flex-shrink: 0;
+  outline: none;
+  white-space: nowrap;
 }
 
-.fatty-scroll-button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+.fatty-tab-button:hover {
+  background-color: #e9f2f9;
+  border-bottom-color: #a0a0a0;
 }
 
-.fatty-scroll-button:active {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+.fatty-tab-button.active {
+  color: #2a5c82;
+  border-bottom-color: #2a5c82;
+  font-weight: bold;
 }
 
-.fatty-scroll-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
+.fatty-tab-content {
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 400px;
 }
 
-.fatty-scroll-button:hover::before {
-  left: 100%;
->>>>>>> Stashed changes
+.fatty-tab-pane {
+  padding-top: 0;
+  opacity: 0;
+  animation: smoothFadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .fatty-mobile-accordion {
+    display: block;
+  }
+  .fatty-desktop-tabs {
+    display: none;
+  }
+  .fatty-toggle-container {
+    flex-direction: column;
+  }
+  .fatty-toggle-button {
+    width: 100%;
+    max-width: none;
+  }
+  .symptoms-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .fatty-title {
+    font-size: 1.5rem;
+  }
+}
+.treatment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: linear-gradient(135deg, #e0f2ff 0%, #cfe2f3 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  color: #1c1c1c; 
+}
+
+.treatment-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a; 
+}
+
+.treatment-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  color: #00586f; 
 }
