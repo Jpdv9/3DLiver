@@ -97,11 +97,11 @@ export default function FattyLiver() {
         <div className="lesson-content">
           <div className="content-section">
             <h4>🧭 Síntomas principales</h4>
-            <ul>
-              <li>Fatiga</li>
+            <ul>              
               <li>Dolor abdominal</li>
               <li>Pérdida de apetito</li>
               <li>Ictericia</li>
+              <li>Fatiga</li>
               <li>Inflamación del hígado</li>
             </ul>
           </div>
