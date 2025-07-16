@@ -54,6 +54,8 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
+  font-weight: 600;
+  color: #2a5c82;
 }
 
 .instructions-tablet .instructions-3d-content p {
@@ -253,6 +255,32 @@
   font-weight: 600;
 }
 
+/* Indicador de salud dinámico - NUEVO */
+.health-indicator {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.health-indicator.normal {
+  background: linear-gradient(135deg, rgba(108, 117, 125, 0.2), rgba(108, 117, 125, 0.1));
+  color: #6c757d;
+  border-color: rgba(108, 117, 125, 0.3);
+}
+
+.health-indicator.healthy {
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.2), rgba(40, 167, 69, 0.1));
+  color: #28a745;
+  border-color: rgba(40, 167, 69, 0.3);
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -261,6 +289,18 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(40, 167, 69, 0.5);
   }
 }
 
@@ -416,6 +456,11 @@
   .function-tag {
     font-size: 9px;
     padding: 4px 6px;
+  }
+
+  .health-indicator {
+    font-size: 10px;
+    padding: 6px 12px;
   }
 }
 
