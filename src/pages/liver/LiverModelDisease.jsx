@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { OrbitControls, useGLTF, Html, Box, Plane } from "@react-three/drei"
+import { OrbitControls, useGLTF, Html, Box, Plane, KeyboardControls } from "@react-three/drei"
 import * as THREE from "three"
 
 // Hook para detectar el tamaño de pantalla
@@ -23,7 +23,6 @@ function useResponsive() {
         isTablet: width >= 768 && width < 1024,
       })
     }
-
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
@@ -38,6 +37,8 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
   const [isRotating, setIsRotating] = useState(true)
   const [showMessage, setShowMessage] = useState(false)
   const [modelPosition, setModelPosition] = useState(position)
+  const [isHovered, setIsHovered] = useState(false)
+  const [modelScale, setModelScale] = useState(1)
 
   // Control de la rotación del modelo con la tecla "R"
   useEffect(() => {
@@ -45,8 +46,20 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
       if (event.key.toLowerCase() === "r") {
         setIsRotating((prev) => !prev)
       }
+      // Nuevo evento de teclado - mover modelo con WASD
+      if (event.key.toLowerCase() === "w") {
+        setModelPosition(prev => [prev[0], prev[1], prev[2] - 0.5])
+      }
+      if (event.key.toLowerCase() === "s") {
+        setModelPosition(prev => [prev[0], prev[1], prev[2] + 0.5])
+      }
+      if (event.key.toLowerCase() === "a") {
+        setModelPosition(prev => [prev[0] - 0.5, prev[1], prev[2]])
+      }
+      if (event.key.toLowerCase() === "d") {
+        setModelPosition(prev => [prev[0] + 0.5, prev[1], prev[2]])
+      }
     }
-
     window.addEventListener("keypress", handleKeyPress)
     return () => window.removeEventListener("keypress", handleKeyPress)
   }, [])
@@ -54,6 +67,11 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
   useFrame(() => {
     if (modelRef.current && isRotating) {
       modelRef.current.rotation.y += 0.005
+    }
+    // Efecto de hover - escala suave
+    if (modelRef.current) {
+      const targetScale = isHovered ? getModelScale() * 1.1 : getModelScale()
+      modelRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1)
     }
   })
 
@@ -75,32 +93,65 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
     return 5
   }
 
+  // Nuevo evento onWheel para zoom personalizado
+  const handleWheel = (event) => {
+    event.stopPropagation()
+    const delta = event.delta
+    setModelScale(prev => Math.max(0.5, Math.min(3, prev + delta * 0.001)))
+  }
+
   return (
     <>
       <primitive
         ref={modelRef}
         object={scene}
-        scale={path.includes("chemo-treatment.glb") ? [0.7, 0.7, 0.7] : getModelScale()}
+
+        scale={getModelScale() * modelScale}
         position={modelPosition}
         onClick={() => setShowMessage(true)}
         onPointerMissed={() => setShowMessage(false)}
+        onWheel={handleWheel}
+        onPointerEnter={() => setIsHovered(true)}
+        onPointerLeave={() => setIsHovered(false)}
       />
-
-      {/* Información Hígado - Responsiva */}
+      
+      {/* Información Hígado - HTML 3D Mejorado */}
       {showMessage && (
         <Html
-          position={[modelPosition[0], modelPosition[1] + 1, modelPosition[2]]}
-          distanceFactor={screenSize.isMobile ? 8 : 6}
+          position={[modelPosition[0]-0.5, modelPosition[1] + 1.6, modelPosition[2]]}
+          distanceFactor={screenSize.isMobile ? 3 : 2}
           occlude
+          transform
         >
-          <div className={`liver-message ${screenSize.isMobile ? "liver-message-mobile" : ""}`}>
-            <h2>Información sobre el hígado</h2>
-            <p>El hígado filtra la sangre y elimina toxinas del cuerpo.</p>
+          <div className={`liver-info-3d ${screenSize.isMobile ? "liver-info-mobile" : ""}`}>
+            <div className="liver-info-header">
+              <h2>🫀 Información del Hígado</h2>
+              <button 
+                className="close-btn"
+                onClick={() => setShowMessage(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="liver-info-content">
+              <div className="info-section">
+                <h3>Función Principal</h3>
+                <p>El hígado filtra la sangre y elimina toxinas del cuerpo.</p>
+              </div>
+              <div className="info-section">
+                <h3>Datos Importantes</h3>
+                <ul>
+                  <li>• Pesa aproximadamente 1.5 kg</li>
+                  <li>• Procesa 1.4 litros de sangre por minuto</li>
+                  <li>• Tiene más de 500 funciones</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </Html>
       )}
 
-      {/* Instrucciones HTML dentro de la escena 3D - Solo para tablet y desktop */}
+      {/* Instrucciones HTML dentro de la escena 3D - Actualizadas */}
       {showInstructions && !screenSize.isMobile && (
         <Html
           position={[-2, 2, 0]}
@@ -112,12 +163,17 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
           <div className={`instructions-3d-container ${screenSize.isTablet ? "instructions-tablet" : ""}`}>
             <h1 className="instructions-3d-title">Controles del Modelo 3D</h1>
             <div className="instructions-3d-content">
-              <p>🖱 Usa el mouse para explorar el modelo 3D:</p>
+              <p>🖱 Eventos de Mouse:</p>
               <ul className="instructions-3d-list">
-                <li>• Haz clic y arrastra para rotar</li>
-                <li>• Usa scroll para hacer zoom</li>
-                <li>• Haz clic derecho para mover la vista</li>
-                <li>• Presiona 'R' para activar/desactivar rotación</li>
+                <li>• Clic: Mostrar información</li>
+                <li>• Hover: Resaltar modelo</li>
+                <li>• Scroll: Zoom personalizado</li>
+                <li>• Arrastrar: Rotar vista</li>
+              </ul>
+              <p>⌨️ Controles de Teclado:</p>
+              <ul className="instructions-3d-list">
+                <li>• R: Activar/desactivar rotación</li>
+                <li>• WASD: Mover modelo</li>
               </ul>
             </div>
           </div>
@@ -142,12 +198,12 @@ function HospitalRoom({ isHealthy, screenSize }) {
       <ambientLight intensity={0.5} />
       <rectAreaLight position={[0, 5, 0]} width={4} height={1} intensity={5} color="#f8f8ff" />
       <directionalLight position={[5, 5, 5]} intensity={0.5} castShadow />
-
+      
       {/* Suelo de hospital */}
       <Plane args={[20, 20]} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
         <meshStandardMaterial color="#e6e6e6" />
       </Plane>
-
+      
       {/* Paredes de la sala */}
       <Plane args={[20, 10]} position={[0, 4, -5]} receiveShadow>
         <meshStandardMaterial color="#f0f8ff" />
@@ -158,7 +214,7 @@ function HospitalRoom({ isHealthy, screenSize }) {
       <Plane args={[20, 10]} position={[5, 4, 0]} rotation={[0, -Math.PI / 2, 0]} receiveShadow>
         <meshStandardMaterial color="#f0f8ff" />
       </Plane>
-
+      
       {/* Mesa de examen médico */}
       <group position={[0, 0, 0]}>
         <Box args={[3, 0.1, 2]} position={[0, 0, 0]} castShadow receiveShadow>
@@ -178,7 +234,7 @@ function HospitalRoom({ isHealthy, screenSize }) {
           <meshStandardMaterial color="#888888" />
         </Box>
       </group>
-
+      
       {/* Líneas de color en la pared */}
       <Box args={[10, 0.2, 0.1]} position={[0, 1.5, -5]} castShadow>
         <meshStandardMaterial color={isHealthy ? "#5d8aa8" : "#e58c8a"} />
@@ -189,7 +245,7 @@ function HospitalRoom({ isHealthy, screenSize }) {
       <Box args={[0.1, 0.2, 10]} position={[-5, 1.5, 0]} castShadow>
         <meshStandardMaterial color={isHealthy ? "#5d8aa8" : "#e58c8a"} />
       </Box>
-
+      
       {/* Carrito médico - Solo en pantallas grandes */}
       {!screenSize.isMobile && (
         <group position={[3, 0, 2]}>
@@ -217,11 +273,11 @@ function HospitalRoom({ isHealthy, screenSize }) {
 // Componente para controlar la cámara
 function CameraController({ target }) {
   const { camera } = useThree()
-
+  
   useEffect(() => {
     camera.lookAt(new THREE.Vector3(...target))
   }, [camera, target])
-
+  
   return null
 }
 
@@ -245,13 +301,13 @@ export default function LiverModel({
     if (screenSize.isTablet) {
       return {
         width: "100%",
-        height: "70vh",
+        height: "40vh",
         camera: { position: [0, 2, 7], fov: 30 },
       }
     }
     return {
       width: "100%",
-      height: "80vh",
+      height: "60vh",
       camera: { position: [0, 2, 8], fov: 25 },
     }
   }
@@ -260,31 +316,41 @@ export default function LiverModel({
 
   return (
     <div className="liver-model-container">
-      <Canvas
-        style={{
-          width: canvasConfig.width,
-          height: canvasConfig.height,
-          maxWidth: "100%",
-        }}
-        shadows
-        camera={canvasConfig.camera}
+      <KeyboardControls
+        map={[
+          { name: "forward", keys: ["ArrowUp", "w", "W"] },
+          { name: "backward", keys: ["ArrowDown", "s", "S"] },
+          { name: "left", keys: ["ArrowLeft", "a", "A"] },
+          { name: "right", keys: ["ArrowRight", "d", "D"] },
+          { name: "rotate", keys: ["r", "R"] },
+        ]}
       >
-        <HospitalRoom isHealthy={isHealthy} screenSize={screenSize} />
-        <OrbitControls
-          target={modelPosition}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={0}
-          enableDamping={true}
-          dampingFactor={0.05}
-        />
-        <CameraController target={modelPosition} />
-        <Model
-          path={modelPath}
-          showInstructions={showHtmlInstructions}
-          position={modelPosition}
-          screenSize={screenSize}
-        />
-      </Canvas>
+        <Canvas
+          style={{
+            width: canvasConfig.width,
+            height: canvasConfig.height,
+            maxWidth: "100%",
+          }}
+          shadows
+          camera={canvasConfig.camera}
+        >
+          <HospitalRoom isHealthy={isHealthy} screenSize={screenSize} />
+          <OrbitControls
+            target={modelPosition}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={0}
+            enableDamping={true}
+            dampingFactor={0.05}
+          />
+          <CameraController target={modelPosition} />
+          <Model
+            path={modelPath}
+            showInstructions={showHtmlInstructions}
+            position={modelPosition}
+            screenSize={screenSize}
+          />
+        </Canvas>
+      </KeyboardControls>
     </div>
   )
 }

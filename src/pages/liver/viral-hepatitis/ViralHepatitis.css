@@ -1,6 +1,6 @@
 /* Estilos base */
 .viral-hepatitis-container {
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
   min-height: 100vh;
   background-color: #ffffff;
@@ -261,6 +261,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 500;
+  color: #fff;
 }
 
 .content-section {
@@ -357,6 +358,7 @@
 .treatment-card p {
   margin: 0;
   line-height: 1.6;
+  color: #fff;
 }
 
 .prevention-list {
