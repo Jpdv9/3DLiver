@@ -209,6 +209,7 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize, setMo
       <primitive
         ref={modelRef}
         object={scene}
+
         scale={getModelScale() * modelScale}
         position={position}
         onClick={handleClick}
