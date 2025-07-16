@@ -333,3 +333,41 @@
   flex-shrink: 0;
   color: #00586f; 
 }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.button-3d {
+  animation: bounce 2s infinite;
+}
+
+.button-3d {
+  background: #2a5c82;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+.input-3d {
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+.fatty-floating-label {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(42, 92, 130, 0.9);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  pointer-events: none;
+}
