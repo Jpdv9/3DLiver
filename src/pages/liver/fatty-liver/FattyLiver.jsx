@@ -5,9 +5,13 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import "./FattyLiver.css";
 import "../controls.css";
+import { Text3D } from '@react-three/drei'
+
 
 export default function FattyLiver() {
   const [isHealthy, setIsHealthy] = useState(false)
+  const [isAdvancedFatty, setIsAdvancedFatty] = useState(false)
+
   const [showInstructionsPopover, setShowInstructionsPopover] = useState(false)
   const [activeTab, setActiveTab] = useState("what-is")
   const [showHtmlInstructions, setShowHtmlInstructions] = useState(false)
@@ -68,6 +72,16 @@ export default function FattyLiver() {
       document.removeEventListener("mousedown", handleOutsideClick)
     }
   }, [showInstructionsPopover])
+
+  useEffect(() => {
+  const handleKeyDown = (event) => {
+    if (event.key === "f") {
+      setIsAdvancedFatty((prev) => !prev)
+    }
+  }
+  window.addEventListener("keydown", handleKeyDown)
+  return () => window.removeEventListener("keydown", handleKeyDown)
+}, [])
 
   const lessons = [
     {
@@ -186,12 +200,21 @@ export default function FattyLiver() {
                 ? "/modelos/medicine/MedicineModel.glb"
                 : isHealthy
                 ? "/modelos/Liver/healthy-liver.glb"
+                : isAdvancedFatty
+                ? "/modelos/fattyliver/fatty-liver2.glb"
                 : "/modelos/fattyliver/early-fatty-liver.glb"
             }
+           
+  
             showHtmlInstructions={showHtmlInstructions}
             isHealthy={isHealthy}
-          />
-        </div>
+          /> {!isHealthy && (
+    <div className="fatty-floating-label">
+      Presiona <strong>F</strong> para alternar entre etapas del hígado graso.
+    </div>
+  )}
+</div>
+
 
         <div className="fatty-toggle-container">
           <button
@@ -208,6 +231,7 @@ export default function FattyLiver() {
             <span className="button-icon">🧈</span>
             <span className="button-text">{isMobile ? "Graso" : "Hígado graso"}</span>
           </button>
+
           <button
             className={`fatty-toggle-button ${showTreatment ? "active" : ""}`}
             onClick={handleTreatmentToggle}

@@ -59,6 +59,7 @@ function Model({ path }) {
           receiveShadow
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, -0.5, 0]}
+          {...props}
         >
           <planeGeometry args={[5, 5]} />
           <meshStandardMaterial color="#e0e0e0" />
