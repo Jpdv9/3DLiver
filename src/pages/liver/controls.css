@@ -6,47 +6,48 @@
   position: relative;
 }
 
-/* Estilos para las instrucciones HTML en 3D */
+/* Estilos para las instrucciones HTML en 3D - Mejoradas */
 .html-3d-instructions {
   pointer-events: auto;
 }
 
 .instructions-3d-container {
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 16px;
-  width: 280px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.9));
+  border-radius: 16px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(42, 92, 130, 0.2);
+  font-family: "Inter", "Arial", sans-serif;
   color: #333;
   max-width: 90vw;
   box-sizing: border-box;
 }
 
 .instructions-tablet {
-  width: 240px;
-  padding: 12px;
+  width: 280px;
+  padding: 16px;
 }
 
 .instructions-3d-title {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #2a5c82;
-  margin: 0 0 12px 0;
+  margin: 0 0 16px 0;
   text-align: center;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 8px;
+  border-bottom: 3px solid #e3f2fd;
+  padding-bottom: 10px;
+  font-weight: 600;
 }
 
 .instructions-tablet .instructions-3d-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .instructions-3d-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .instructions-3d-content p {
@@ -66,17 +67,204 @@
 }
 
 .instructions-3d-list li {
-  font-size: 14px;
-  margin-bottom: 6px;
+  font-size: 12px;
+  margin-bottom: 4px;
   line-height: 1.4;
+  color: #555;
 }
 
 .instructions-tablet .instructions-3d-list li {
-  font-size: 12px;
-  margin-bottom: 4px;
+  font-size: 11px;
+  margin-bottom: 3px;
 }
 
-/* Información del Hígado - Responsiva */
+/* Nuevos estilos para secciones de control */
+.control-section {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #2a5c82;
+}
+
+.control-section h4 {
+  margin: 0 0 8px 0;
+  color: #2a5c82;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-indicators {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  background: #f5f5f5;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.status.active {
+  background: #4caf50;
+  color: white;
+}
+
+/* Información del Hígado 3D - Mejorada */
+.liver-info-3d {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 248, 255, 0.95));
+  border-radius: 16px;
+  padding: 0;
+  width: 350px;
+  max-width: 90vw;
+  box-shadow: 0 10px 30px rgba(42, 92, 130, 0.2);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(42, 92, 130, 0.3);
+  font-family: "Inter", "Arial", sans-serif;
+  overflow: hidden;
+  animation: slideIn 0.4s ease-out;
+}
+
+.liver-info-mobile {
+  width: 280px;
+  transform: scale(0.9);
+}
+
+.liver-info-header {
+  background: linear-gradient(135deg, #2a5c82, #4a7ba7);
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.liver-info-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.liver-info-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-section {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #4caf50;
+}
+
+.info-section h3 {
+  margin: 0 0 8px 0;
+  color: #2a5c82;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.info-section p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.info-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-section li {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.functions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.function-tag {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #1976d2;
+  padding: 6px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid rgba(25, 118, 210, 0.2);
+}
+
+.info-stats {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(42, 92, 130, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 14px;
+  color: #2a5c82;
+  font-weight: 600;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Información del Hígado - Responsiva (Estilos originales mantenidos) */
 .liver-message {
   background: rgba(255, 255, 255, 0.95);
   padding: 12px 15px;
@@ -178,11 +366,56 @@
   .liver-model-container {
     padding: 8px;
   }
+
+  .liver-info-3d {
+    width: 300px;
+  }
+
+  .functions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instructions-3d-container {
+    width: 260px;
+    padding: 14px;
+  }
+
+  .control-section {
+    padding: 10px;
+  }
 }
 
 @media (max-width: 480px) {
   .liver-model-container {
     padding: 4px;
+  }
+
+  .liver-info-3d {
+    width: 260px;
+  }
+
+  .instructions-3d-container {
+    width: 220px;
+    padding: 12px;
+  }
+
+  .liver-info-content {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .info-section {
+    padding: 10px;
+  }
+
+  .functions-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .function-tag {
+    font-size: 9px;
+    padding: 4px 6px;
   }
 }
 
