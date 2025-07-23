@@ -1,44 +1,59 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import LiverModel from "../LiverModelDisease" // Asegúrate de que la ruta sea correcta
+import LiverModel from "../LiverModelDisease"
 import { IoIosHelpCircleOutline } from "react-icons/io"
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md"
-import "./LiverCirrhosis.css" // Importa los nuevos estilos
-import "../controls.css" // Si tienes estilos de controles adicionales
+import "./LiverCirrhosis.css"
+import "../controls.css"
 
 export default function LiverCirrhosis() {
   const [isHealthy, setIsHealthy] = useState(false)
   const [showInstructionsPopover, setShowInstructionsPopover] = useState(false)
   const [activeTab, setActiveTab] = useState("what-is")
+  const [showHtmlInstructions, setShowHtmlInstructions] = useState(false)
+  const [showTreatment, setShowTreatment] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
   const iconRef = useRef(null)
   const popoverRef = useRef(null)
 
-  // Detectar si la vista es móvil para cambiar entre tabs y acordeón
+  // Detectar si es móvil
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
+
     checkMobile()
     window.addEventListener("resize", checkMobile)
+
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
-  
-  // Handlers para los botones de estado del hígado
-  const handleCirrhosisLiver = () => setIsHealthy(false)
-  const handleHealthyLiver = () => setIsHealthy(true)
+
+  const handleTreatmentToggle = () => {
+    setShowTreatment(true)
+    setIsHealthy(false)
+  }
+
+  const handleCirrhosis = () => {
+    setIsHealthy(false)
+    setShowTreatment(false)
+  }
+
+  const handleHealthyLiver = () => {
+    setIsHealthy(true)
+    setShowInstructionsPopover(false)
+    setShowTreatment(false)
+  }
 
   const toggleInstructionsPopover = () => {
-    setShowInstructionsPopover(!showInstructionsPopover)
+    setShowHtmlInstructions(!showHtmlInstructions)
+    setShowInstructionsPopover(false)
   }
 
-  // Cambiar la pestaña/acordeón activo
   const handleTabClick = (tabId) => {
-    setActiveTab(activeTab === tabId ? null : tabId) // Permite cerrar el acordeón
+    setActiveTab(tabId)
   }
 
-  // Cerrar popover de instrucciones al hacer clic fuera
   useEffect(() => {
     function handleOutsideClick(event) {
       if (
@@ -51,11 +66,14 @@ export default function LiverCirrhosis() {
         setShowInstructionsPopover(false)
       }
     }
+
     document.addEventListener("mousedown", handleOutsideClick)
-    return () => document.removeEventListener("mousedown", handleOutsideClick)
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick)
+    }
   }, [showInstructionsPopover])
   
-  // Contenido de las lecciones de Cirrosis
   const lessons = [
     {
       id: "what-is",
@@ -111,27 +129,33 @@ export default function LiverCirrhosis() {
       icon: "💊",
       content: (
         <div className="lesson-content">
-            <div className="content-highlight">
-                <p>El tratamiento se enfoca en detener el daño, manejar los síntomas y prevenir complicaciones.</p>
-            </div>
+          <div className="content-highlight">
+            <p>El tratamiento de la cirrosis se centra en detener el daño hepático y prevenir complicaciones. No tiene cura, pero se puede controlar.</p>
+          </div>
+
           <div className="content-section">
-            <h4>Enfoques Principales</h4>
-            <div className="treatment-list">
-              <div className="treatment-item">
-                <span className="treatment-icon">🎯</span>
-                <p><strong>Tratar la causa subyacente:</strong> Controlar el alcoholismo, tratar la hepatitis, manejar el hígado graso, etc.</p>
-              </div>
-              <div className="treatment-item">
+            <h4>🔬 Opciones de tratamiento</h4>
+            <div className="treatments-list">
+              <div className="treatments-item">
                 <span className="treatment-icon">🥗</span>
-                <p><strong>Cambios en el estilo de vida:</strong> Dieta baja en sodio, nutrición adecuada y evitar alcohol y drogas tóxicas para el hígado.</p>
+                <div>
+                  <strong>Estilo de vida y dieta</strong>
+                  <p>Abstenerse de alcohol, llevar una dieta baja en sodio y equilibrada.</p>
+                </div>
               </div>
-              <div className="treatment-item">
-                <span className="treatment-icon">🩺</span>
-                <p><strong>Control de complicaciones:</strong> Medicamentos para manejar la hinchazón, la presión portal y el riesgo de infecciones.</p>
+              <div className="treatments-item">
+                <span className="treatment-icon">💊</span>
+                <div>
+                  <strong>Medicamentos</strong>
+                  <p>Para tratar la causa subyacente (ej. antivirales para hepatitis) y manejar síntomas como la retención de líquidos (diuréticos).</p>
+                </div>
               </div>
-              <div className="treatment-item">
-                <span className="treatment-icon">🔄</span>
-                <p><strong>Trasplante hepático:</strong> En casos de insuficiencia hepática avanzada, es la única opción curativa.</p>
+              <div className="treatments-item">
+                <span className="treatment-icon">🏥</span>
+                <div>
+                  <strong>Trasplante de hígado</strong>
+                  <p>En casos avanzados, es la única opción curativa.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -152,7 +176,7 @@ export default function LiverCirrhosis() {
       <h2 className="cirrhosis-title">CIRROSIS HEPÁTICA</h2>
 
       <div className="cirrhosis-model-wrapper">
-        {/* Icono de ayuda solo en desktop */}
+        {/* Solo mostrar el icono de ayuda en desktop */}
         {!isMobile && (
           <div className="cirrhosis-instructions-help-container">
             <button
@@ -163,6 +187,7 @@ export default function LiverCirrhosis() {
             >
               <IoIosHelpCircleOutline />
             </button>
+
             {showInstructionsPopover && (
               <div ref={popoverRef} className="cirrhosis-instructions-popover">
                 <p>
@@ -175,48 +200,60 @@ export default function LiverCirrhosis() {
             )}
           </div>
         )}
-
+        
         <div className="cirrhosis-model-container">
           <LiverModel
             modelPath={
-              isHealthy
-                ? "/modelos/fattyliver/healthy-liver.glb"
-                : "/modelos/livercirrhosis/CirrosisLiver.glb"
+              showTreatment
+                ? "/modelos/livercirrhosis/pastillamodelo.glb"
+                : isHealthy
+                  ? "/modelos/Liver/healthy-liver.glb"
+                  : "/modelos/livercirrhosis/CirrosisLiver.glb"
             }
-            scale={isHealthy ? 0.09 : 0.09} // Ajusta la escala si es necesario
+            showHtmlInstructions={showHtmlInstructions}
+            isHealthy={isHealthy}
+            scale={
+              showTreatment ? [0.02, 0.02, 0.02] : [1, 1, 1]
+            }
           />
         </div>
-
+        
         <div className="cirrhosis-toggle-container">
           <button
-            className={`cirrhosis-toggle-button ${isHealthy ? "active" : ""}`}
+            className={`cirrhosis-toggle-button ${isHealthy && !showTreatment ? "active" : ""}`}
             onClick={handleHealthyLiver}
           >
             <span className="button-icon">❤️</span>
-            <span className="button-text">{isMobile ? "Sano" : "Ver Hígado Sano"}</span>
+            <span className="button-text">{isMobile ? "Sano" : "Hígado sano"}</span>
           </button>
           <button
-            className={`cirrhosis-toggle-button ${!isHealthy ? "active" : ""}`}
-            onClick={handleCirrhosisLiver}
+            className={`cirrhosis-toggle-button ${!isHealthy && !showTreatment ? "active" : ""}`}
+            onClick={handleCirrhosis}
           >
-            <span className="button-icon">🧱</span>
-            <span className="button-text">{isMobile ? "Cirrosis" : "Ver Hígado con Cirrosis"}</span>
+            <span className="button-icon">🤕</span>
+            <span className="button-text">{isMobile ? "Cirrosis" : "Cirrosis hepática"}</span>
+          </button>
+          <button
+            className={`cirrhosis-toggle-button ${showTreatment ? "active" : ""}`}
+            onClick={handleTreatmentToggle}
+          >
+            <span className="button-icon">💊</span>
+            <span className="button-text">Tratamiento</span>
           </button>
         </div>
 
         <div className="cirrhosis-scroll-container">
-          <a
-            href="#lecciones"
+          <button
             className="cirrhosis-scroll-button"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById("lecciones").scrollIntoView({ behavior: "smooth" })
+            onClick={() => {
+              const section = document.getElementById("lecciones")
+              if (section) section.scrollIntoView({ behavior: "smooth" })
             }}
           >
             <span className="scroll-button-icon">📚</span>
-            <span>{isMobile ? "Ver Lecciones" : "Explorar Lecciones"}</span>
+            <span>{isMobile ? "Ver lecciones" : "Explorar lecciones"}</span>
             <MdOutlineKeyboardDoubleArrowDown />
-          </a>
+          </button>
         </div>
 
         <section className="cirrhosis-lesson-section" id="lecciones">
@@ -232,7 +269,15 @@ export default function LiverCirrhosis() {
                     <span className="accordion-icon">{lesson.icon}</span>
                     <span className="accordion-title">{lesson.title}</span>
                   </div>
-                  <svg className={`cirrhosis-accordion-arrow ${activeTab === lesson.id ? "rotated" : ""}`} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className={`cirrhosis-accordion-arrow ${activeTab === lesson.id ? "rotated" : ""}`}
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <polyline points="6,9 12,15 18,9"></polyline>
                   </svg>
                 </button>
@@ -250,13 +295,14 @@ export default function LiverCirrhosis() {
                 <button
                   key={lesson.id}
                   className={`cirrhosis-tab-button ${activeTab === lesson.id ? "active" : ""}`}
-                  onClick={() => setActiveTab(lesson.id)}
+                  onClick={() => handleTabClick(lesson.id)}
                 >
                   <span className="tab-icon">{lesson.icon}</span>
                   <span>{lesson.title}</span>
                 </button>
               ))}
             </div>
+
             <div className="cirrhosis-tab-content">
               {lessons.map(
                 (lesson) =>
@@ -264,7 +310,7 @@ export default function LiverCirrhosis() {
                     <div key={lesson.id} className="cirrhosis-tab-pane">
                       {lesson.content}
                     </div>
-                  )
+                  ),
               )}
             </div>
           </div>
