@@ -14,28 +14,43 @@ import ViralHepatitis from './pages/liver/viral-hepatitis/ViralHepatitis'
 import Layout from './layout/Layout'
 import LiverCirrhosis from './pages/liver/liver-cirrhosis/LiverCirrhosis'
 import FattyLiver from './pages/liver/fatty-liver/FattyLiver'
+import Login from './pages/auth/Login'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthProvider } from './contexts/AuthContext'
 
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthProvider>
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route index path='/' element = {<Home/>}/>
-            <Route path='quiz' element = {<Quiz/>}/>
-            <Route path='*' element = {<NotFound/>}/>
-            <Route path='contacto' element={<Contact/>}/>
-            <Route path='recursos' element={<Resources/>}/>
-            <Route path='sobre-nosotros' element={<AboutUs/>}/>
-            <Route path='higado' element = {<Liver/>}/>
-            <Route path='higado/cancer-higado' element = {<LiverCancer/>}/>
-            <Route path='higado/hepatitis-viral' element = {<ViralHepatitis/>}/>
-            <Route path='higado/cirrosis-hepatica' element = {<LiverCirrhosis/>}/>
-            <Route path='higado/higado-graso' element = {<FattyLiver/>}/>
-          </Routes>
-        </Layout>
+        <Routes>
+          {/* Authentication routes without Layout */}
+          <Route path='login' element={<Login/>}/>
+          
+          {/* Main application routes with Layout */}
+          <Route path='/*' element={
+            <Layout>
+              <Routes>
+                <Route index path='/' element = {<Home/>}/>
+                <Route path='quiz' element = {
+                  <ProtectedRoute>
+                    <Quiz/>
+                  </ProtectedRoute>
+                }/>
+                <Route path='contacto' element={<Contact/>}/>
+                <Route path='recursos' element={<Resources/>}/>
+                <Route path='sobre-nosotros' element={<AboutUs/>}/>
+                <Route path='higado' element = {<Liver/>}/>
+                <Route path='higado/cancer-higado' element = {<LiverCancer/>}/>
+                <Route path='higado/hepatitis-viral' element = {<ViralHepatitis/>}/>
+                <Route path='higado/cirrosis-hepatica' element = {<LiverCirrhosis/>}/>
+                <Route path='higado/higado-graso' element = {<FattyLiver/>}/>
+                <Route path='*' element = {<NotFound/>}/>
+              </Routes>
+            </Layout>
+          }/>
+        </Routes>
       </BrowserRouter>
-
+    </AuthProvider>
   </React.StrictMode>
- 
 )

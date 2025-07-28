@@ -1,10 +1,28 @@
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { FiLogOut } from "react-icons/fi";
+import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 import './Header.css';
 
 const Header = ({ isMenuOpen, setIsMenuOpen }) => {
+  const { currentUser, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const navigate = useNavigate();
+  
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
+  const toggleUserMenu = () => setShowUserMenu(!showUserMenu);
 
   return (
     <header className='header'>
@@ -26,17 +44,37 @@ const Header = ({ isMenuOpen, setIsMenuOpen }) => {
         </button>
       </div>
       <div className='user-container'>
-        <div className='notification-container'>
-          <button className='notification-button'>
-            <IoMdNotificationsOutline className='notification-icon'/>
-          </button>
-        </div>
-        <div className='user-profile'>
-          <div className='user-info'>
-            <span className='user-name'>Usuario</span>
-            <img src='/imagenes/user/user.png' alt="Perfil de usuario" className='user-avatar'/>
+        {currentUser ? (
+          <>
+            <div className='notification-container'>
+              <button className='notification-button'>
+                <IoMdNotificationsOutline className='notification-icon'/>
+              </button>
+            </div>
+            <div className='user-profile' onClick={toggleUserMenu}>
+              <div className='user-info'>
+                <span className='user-name'>
+                  {currentUser.displayName || currentUser.email?.split('@')[0] || 'Usuario'}
+                </span>
+                <img src='/imagenes/user/user.png' alt="Perfil de usuario" className='user-avatar'/>
+              </div>
+              {showUserMenu && (
+                <div className='user-dropdown'>
+                  <button onClick={handleLogout} className='logout-button'>
+                    <FiLogOut className='logout-icon'/>
+                    Cerrar Sesión
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className='auth-buttons'>
+            <NavLink to="/login" className='login-btn'>
+              Iniciar Sesión con Google
+            </NavLink>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );
