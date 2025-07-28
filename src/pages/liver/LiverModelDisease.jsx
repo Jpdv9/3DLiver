@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { OrbitControls, useGLTF, Html, Box, Plane, KeyboardControls } from "@react-three/drei"
+import { OrbitControls, useGLTF, Html, Box, Plane, KeyboardControls, PositionalAudio } from "@react-three/drei"
 import * as THREE from "three"
 
 // Hook para detectar el tamaño de pantalla
@@ -34,12 +34,14 @@ function useResponsive() {
 function Model({ path, showInstructions, position = [0, 1, 0], screenSize, diseaseStage, showTreatment, isHealthy }) {
   const { scene } = useGLTF(path)
   const modelRef = useRef()
+  const audioRef = useRef()
   const [isRotating, setIsRotating] = useState(true)
   const [showMessage, setShowMessage] = useState(false)
   const [modelPosition, setModelPosition] = useState(position)
   const [isHovered, setIsHovered] = useState(false)
   const [modelScale, setModelScale] = useState(1)
   const [showFButton, setShowFButton] = useState(false)
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
 
   // Control de la rotación del modelo con la tecla "R"
   useEffect(() => {
@@ -112,15 +114,28 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize, disea
     setModelScale(prev => Math.max(0.5, Math.min(3, prev + delta * 0.001)))
   }
 
+  // Handle model click - show message and play audio
+  const handleModelClick = () => {
+    setShowMessage(true)
+    if (audioRef.current) {
+      if (isAudioPlaying) {
+        audioRef.current.pause()
+        setIsAudioPlaying(false)
+      } else {
+        audioRef.current.play()
+        setIsAudioPlaying(true)
+      }
+    }
+  }
+
   return (
     <>
       <primitive
         ref={modelRef}
         object={scene}
-
         scale={getModelScale() * modelScale}
         position={modelPosition}
-        onClick={() => setShowMessage(true)}
+        onClick={handleModelClick}
         onPointerMissed={() => setShowMessage(false)}
         onWheel={handleWheel}
         onPointerEnter={() => setIsHovered(true)}
@@ -157,6 +172,12 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize, disea
                   <li>• Procesa 1.4 litros de sangre por minuto</li>
                   <li>• Tiene más de 500 funciones</li>
                 </ul>
+              </div>
+              <div className="info-section">
+                <h3>🔊 Audio</h3>
+                <p>
+                  {isAudioPlaying ? "🔊 Sonido reproduciéndose" : "🔇 Haz clic para activar sonido"}
+                </p>
               </div>
             </div>
           </div>
@@ -218,6 +239,16 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize, disea
           </div>
         </Html>
       )}
+
+      {/* Hospital Ambient Sound - Triggered by clicking the model */}
+      <PositionalAudio
+        ref={audioRef}
+        url="/sonidos/HospitalSound.mp3"
+        distance={10}
+        loop
+        volume={0.3}
+        position={modelPosition}
+      />
     </>
   )
 }
