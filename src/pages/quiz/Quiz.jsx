@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html } from '@react-three/drei';
 import './Quiz.css'
@@ -23,20 +23,6 @@ function LiverProgressModel({ correctAnswers, totalQuestions }) {
         }
     });
 
-    const getProgressMessage = () => {
-        if (correctAnswers === 0) return "Responde correctamente para revelar tu hígado sano";
-        if (correctAnswers === 1) return "¡Excelente! Primera parte del hígado revelada";
-        if (correctAnswers === 2) return "¡Sigue así! El hígado se ve cada vez mejor";
-        if (correctAnswers === 3) return "¡Increíble! 30% del hígado ya es visible";
-        if (correctAnswers === 4) return "¡Fantástico! Casi la mitad del hígado revelado";
-        if (correctAnswers === 5) return "¡Perfecto! 50% del hígado sano descubierto";
-        if (correctAnswers === 6) return "¡Excelente progreso! 60% del hígado visible";
-        if (correctAnswers === 7) return "¡Magnífico! 70% del hígado ya es visible";
-        if (correctAnswers === 8) return "¡Casi terminamos! 80% del hígado revelado";
-        if (correctAnswers === 9) return "¡Solo una más! 90% del hígado descubierto";
-        return "¡Felicidades! Hígado 100% sano completamente revelado";
-    };
-
     return (
         <>
             <ambientLight intensity={0.8} />
@@ -44,31 +30,55 @@ function LiverProgressModel({ correctAnswers, totalQuestions }) {
             <pointLight position={[-2, 3, -1]} intensity={0.6} color="#228B22" />
             <spotLight position={[0, 5, 0]} intensity={0.8} angle={0.3} penumbra={0.2} />
             
-            <primitive 
-                object={scene} 
-                scale={9} 
-                position={[0, -0.5, 0]}
-                rotation={[0, Math.PI / 4, 0]}
-            />
-            
-            {/* Progress indicator */}
-            <Html position={[0, -3.5, 0]} center>
-                <div className="liver-progress-indicator">
-                    <div className="progress-circle">
-                        <div 
-                            className="progress-fill-circle"
-                            style={{
-                                background: `conic-gradient(#228B22 ${progressPercentage * 3.6}deg, rgba(255,255,255,0.2) 0deg)`
-                            }}
-                        >
-                            <div className="progress-inner">
-                                <span className="progress-text">{Math.round(progressPercentage)}%</span>
+            {correctAnswers === 0 ? (
+                // Initial 3D Banner
+                <Html position={[0, 0, 0]} center>
+                    <div style={{
+                        background: 'linear-gradient(135deg, #2a5c82, #1a4c72)',
+                        color: '#f2f6f9',
+                        padding: '2rem 3rem',
+                        borderRadius: '20px',
+                        textAlign: 'center',
+                        fontSize: '1.8rem',
+                        fontWeight: '600',
+                        maxWidth: '400px',
+                        boxShadow: '0 20px 40px rgba(42, 92, 130, 0.4)',
+                        border: '2px solid rgba(161, 196, 219, 0.3)',
+                        backdropFilter: 'blur(10px)',
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+                    }}>
+                        🎯 Responde correctamente para revelar el hígado sano
+                    </div>
+                </Html>
+            ) : (
+                // Liver model with progress circle
+                <>
+                    <primitive 
+                        object={scene} 
+                        scale={18} 
+                        position={[0, 0, 0]}
+                        rotation={[0, Math.PI / 4, 0]}
+                    />
+                    
+                    {/* Progress circle only */}
+                    <Html position={[0, 1.5, 0]} center>
+                        <div className="liver-progress-indicator">
+                            <div className="progress-circle">
+                                <div 
+                                    className="progress-fill-circle"
+                                    style={{
+                                        background: `conic-gradient(#228B22 ${progressPercentage * 3.6}deg, rgba(255,255,255,0.2) 0deg)`
+                                    }}
+                                >
+                                    <div className="progress-inner">
+                                        <span className="progress-text">{Math.round(progressPercentage)}%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <p className="progress-message">{getProgressMessage()}</p>
-                </div>
-            </Html>
+                    </Html>
+                </>
+            )}
         </>
     );
 }
@@ -81,6 +91,16 @@ const Quiz = () => {
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [userAnswers, setUserAnswers] = useState([]);
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Quiz questions about liver diseases
     const questions = [
@@ -208,15 +228,12 @@ const Quiz = () => {
 
     const handleAnswerSelect = (answerIndex) => {
         setSelectedAnswer(answerIndex);
-    };
-
-    const handleNextQuestion = useCallback(() => {
-        if (selectedAnswer === null) return;
-
-        const isCorrect = selectedAnswer === questions[currentQuestion].correctAnswer;
+        
+        // Show explanation immediately when answer is selected
+        const isCorrect = answerIndex === questions[currentQuestion].correctAnswer;
         const newAnswer = {
             questionId: questions[currentQuestion].id,
-            selectedAnswer,
+            selectedAnswer: answerIndex,
             isCorrect,
             question: questions[currentQuestion].question
         };
@@ -231,17 +248,20 @@ const Quiz = () => {
 
         // Update quiz progress
         incrementQuizProgress();
+    };
 
-        setTimeout(() => {
-            if (currentQuestion < questions.length - 1) {
-                setCurrentQuestion(prev => prev + 1);
-                setSelectedAnswer(null);
-                setShowExplanation(false);
-            } else {
-                setQuizCompleted(true);
-            }
-        }, 3000);
-    }, [selectedAnswer, currentQuestion, questions, incrementQuizProgress]);
+    const handleNextQuestion = useCallback(() => {
+        if (selectedAnswer === null) return;
+
+        // Move to next question only when "Siguiente" is clicked
+        if (currentQuestion < questions.length - 1) {
+            setCurrentQuestion(prev => prev + 1);
+            setSelectedAnswer(null);
+            setShowExplanation(false);
+        } else {
+            setQuizCompleted(true);
+        }
+    }, [selectedAnswer, currentQuestion, questions]);
 
     const restartQuiz = () => {
         setCurrentQuestion(0);
@@ -315,32 +335,42 @@ const Quiz = () => {
                 </div>
             </div>
 
-            {/* Main Quiz Layout - Side by Side */}
-            <div className="quiz-main-layout">
-                {/* 3D Liver Progress Model */}
-                <div className="liver-model-container">
-                    <Canvas
-                        style={{ width: "100%", height: "100%", background: "transparent" }}
-                        camera={{ position: [0, 2, 5], fov: 45 }}
-                        gl={{ alpha: true, antialias: true }}
-                    >
-                        <OrbitControls 
-                            enableZoom={false} 
-                            enablePan={false}
-                            autoRotate={true}
-                            autoRotateSpeed={2}
-                            maxPolarAngle={Math.PI / 2}
-                            minPolarAngle={Math.PI / 3}
-                        />
-                        <LiverProgressModel 
-                            correctAnswers={correctAnswersCount} 
-                            totalQuestions={questions.length} 
-                        />
-                    </Canvas>
-                </div>
-
-                <div className="quiz-content">
+            {/* Main Quiz Layout - Canvas Centered */}
+            <div className="quiz-main-layout" style={{
+                display: 'flex',
+                gap: '1rem',
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'center' : 'stretch'
+            }}>
+                {/* Quiz Content Container - Left Side */}
+                <div className="quiz-content" style={{
+                    flex: isMobile ? 'none' : '1',
+                    width: isMobile ? '100%' : 'auto',
+                    maxWidth: isMobile ? '100%' : 'none'
+                }}>
                     <div className="question-container">
+                        {showExplanation && (
+                            <div className="explanation-container" style={{
+                                marginBottom: '1.5rem',
+                                order: -1
+                            }}>
+                                <div className="explanation-header">
+                                    <span className="explanation-icon">
+                                        {selectedAnswer === questions[currentQuestion].correctAnswer ? '✅' : '❌'}
+                                    </span>
+                                    <h3>
+                                        {selectedAnswer === questions[currentQuestion].correctAnswer 
+                                            ? '¡Correcto!' 
+                                            : 'Incorrecto'
+                                        }
+                                    </h3>
+                                </div>
+                                <p className="explanation-text">
+                                    {questions[currentQuestion].explanation}
+                                </p>
+                            </div>
+                        )}
+
                         <h2 className="question-text">
                             {questions[currentQuestion].question}
                         </h2>
@@ -371,33 +401,104 @@ const Quiz = () => {
                             ))}
                         </div>
 
-                        {showExplanation && (
-                            <div className="explanation-container">
-                                <div className="explanation-header">
-                                    <span className="explanation-icon">
-                                        {selectedAnswer === questions[currentQuestion].correctAnswer ? '✅' : '❌'}
-                                    </span>
-                                    <h3>
-                                        {selectedAnswer === questions[currentQuestion].correctAnswer 
-                                            ? '¡Correcto!' 
-                                            : 'Incorrecto'
-                                        }
-                                    </h3>
-                                </div>
-                                <p className="explanation-text">
-                                    {questions[currentQuestion].explanation}
-                                </p>
-                            </div>
-                        )}
-
                         <div className="quiz-actions">
                             <button 
                                 className="next-button"
                                 onClick={handleNextQuestion}
-                                disabled={selectedAnswer === null || showExplanation}
+                                disabled={selectedAnswer === null}
                             >
                                 {currentQuestion === questions.length - 1 ? 'Finalizar Quiz' : 'Siguiente'}
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Side Container for 3D Model and Progress Info */}
+                <div style={{ 
+                    flex: isMobile ? 'none' : '4',
+                    width: isMobile ? '100%' : 'auto',
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    maxWidth: isMobile ? '100%' : 'none'
+                }}>
+                    {/* 3D Liver Progress Model */}
+                    <div className="liver-model-container" style={{
+                        flex: '1',
+                        minHeight: isMobile ? '300px' : '350px',
+                        maxHeight: isMobile ? '400px' : '450px',
+                        width: '100%'
+                    }}>
+                        <Canvas
+                            style={{ 
+                                width: "100%", 
+                                height: "100%", 
+                                background: "transparent",
+                                border: "5px solid #f5b14c",
+                                borderRadius: "15px",
+                                boxShadow: "0 0 25px rgba(245, 177, 76, 0.7)",
+                                overflow: "hidden"
+                            }}
+                            camera={{ position: [0, 2, 12], fov: 35 }}
+                            gl={{ alpha: true, antialias: true }}
+                        >
+                            <OrbitControls 
+                                enableZoom={false} 
+                                enablePan={false}
+                                autoRotate={true}
+                                autoRotateSpeed={2}
+                                maxPolarAngle={Math.PI / 2}
+                                minPolarAngle={Math.PI / 3}
+                            />
+                            <LiverProgressModel 
+                                correctAnswers={correctAnswersCount} 
+                                totalQuestions={questions.length} 
+                            />
+                        </Canvas>
+                    </div>
+
+                    {/* Progress Information Container - Below the model */}
+                    <div className="progress-info-container" style={{
+                        backgroundColor: 'rgba(42, 92, 130, 0.1)',
+                        borderRadius: '15px',
+                        padding: isMobile ? '1rem' : '1.5rem',
+                        border: '1px solid rgba(161, 196, 219, 0.3)',
+                        backdropFilter: 'blur(10px)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        width: '100%'
+                    }}>
+                        <h3 style={{
+                            color: '#f2f6f9',
+                            fontSize: isMobile ? '1.1rem' : '1.3rem',
+                            marginBottom: '1rem',
+                            textAlign: 'center',
+                            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)'
+                        }}>
+                            Progreso del Hígado
+                        </h3>
+                        
+                        <div style={{
+                            textAlign: 'center',
+                            marginBottom: isMobile ? '1rem' : '1.5rem'
+                        }}>
+                            <div style={{
+                                fontSize: isMobile ? '2.5rem' : '3rem',
+                                fontWeight: 'bold',
+                                color: '#f5b14c',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+                                marginBottom: '0.5rem'
+                            }}>
+                                {Math.round((correctAnswersCount / questions.length) * 100)}%
+                            </div>
+                            <div style={{
+                                color: '#f2f6f9',
+                                fontSize: isMobile ? '0.9rem' : '1rem',
+                                opacity: '0.9'
+                            }}>
+                                {correctAnswersCount} de {questions.length} respuestas correctas
+                            </div>
                         </div>
                     </div>
                 </div>
