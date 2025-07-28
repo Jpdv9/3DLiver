@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import LiverModel from "../LiverModelDisease";
+import TreatmentStage from "./TreatmentStage";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import "./FattyLiver.css";
+import "./TreatmentStage.css";
 import "../controls.css";
+import { Text3D } from '@react-three/drei'
+
 
 export default function FattyLiver() {
   const [isHealthy, setIsHealthy] = useState(false)
+  const [isAdvancedFatty, setIsAdvancedFatty] = useState(false)
+
   const [showInstructionsPopover, setShowInstructionsPopover] = useState(false)
   const [activeTab, setActiveTab] = useState("what-is")
   const [showHtmlInstructions, setShowHtmlInstructions] = useState(false)
@@ -42,6 +48,10 @@ export default function FattyLiver() {
     setShowTreatment(true)
     setIsHealthy(false)
     setDiseaseStage(0)
+  }
+
+  const handleCloseTreatment = () => {
+    setShowTreatment(false)
   }
 
   const handleFatty = () => {
@@ -83,6 +93,16 @@ export default function FattyLiver() {
       document.removeEventListener("mousedown", handleOutsideClick)
     }
   }, [showInstructionsPopover])
+
+  useEffect(() => {
+  const handleKeyDown = (event) => {
+    if (event.key === "f") {
+      setIsAdvancedFatty((prev) => !prev)
+    }
+  }
+  window.addEventListener("keydown", handleKeyDown)
+  return () => window.removeEventListener("keydown", handleKeyDown)
+}, [])
 
   const lessons = [
     {
@@ -215,23 +235,27 @@ export default function FattyLiver() {
         )}
 
         <div className="fatty-model-container">
-          <LiverModel
-            modelPath={
-              showTreatment
-                ? "/modelos/medicine/MedicineModel.glb"
-                : isHealthy
-                ? "/modelos/Liver/healthy-liver.glb"
-                : diseaseStage === 0
-                ? "/modelos/fattyliver/early-fatty-liver.glb"
-                : diseaseStage === 1
-                ? "/modelos/fattyliver/full-fatty-liver.glb"
-                : "/modelos/fattyliver/fatty-liver.glb"
-            }
-            showHtmlInstructions={showHtmlInstructions}
-            isHealthy={isHealthy}
-            diseaseStage={diseaseStage}
-            showTreatment={showTreatment}
-          />
+          {showTreatment ? (
+            <TreatmentStage 
+              onCloseTreatment={handleCloseTreatment}
+            />
+          ) : (
+            <LiverModel
+              modelPath={
+                isHealthy
+                  ? "/modelos/Liver/healthy-liver.glb"
+                  : diseaseStage === 0
+                  ? "/modelos/fattyliver/early-fatty-liver.glb"
+                  : diseaseStage === 1
+                  ? "/modelos/fattyliver/full-fatty-liver.glb"
+                  : "/modelos/fattyliver/fatty-liver.glb"
+              }
+              showHtmlInstructions={showHtmlInstructions}
+              isHealthy={isHealthy}
+              diseaseStage={diseaseStage}
+              showTreatment={showTreatment}
+            />
+          )}
         </div>
 
         <div className="fatty-toggle-container">
@@ -249,6 +273,7 @@ export default function FattyLiver() {
             <span className="button-icon">🧈</span>
             <span className="button-text">{isMobile ? "Graso" : "Hígado graso"}</span>
           </button>
+
           <button
             className={`fatty-toggle-button ${showTreatment ? "active" : ""}`}
             onClick={handleTreatmentToggle}

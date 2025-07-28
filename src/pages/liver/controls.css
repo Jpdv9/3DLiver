@@ -559,3 +559,90 @@ body {
     padding: 3px 8px;
   }
 }
+
+/* Treatment Message 3D Styling */
+.treatment-message-3d {
+  pointer-events: none;
+  user-select: none;
+  z-index: 1000;
+}
+
+.treatment-message-content {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  padding: 20px;
+  border-radius: 15px;
+  min-width: 280px;
+  max-width: 320px;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  color: white;
+  animation: treatmentPulse 2s ease-in-out infinite;
+}
+
+.treatment-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  animation: treatmentBounce 1.5s ease-in-out infinite;
+}
+
+.treatment-text {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.treatment-highlight {
+  font-size: 13px;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Treatment animations */
+@keyframes treatmentPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(76, 175, 80, 0.5);
+  }
+}
+
+@keyframes treatmentBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Mobile responsiveness for treatment message */
+@media (max-width: 768px) {
+  .treatment-message-content {
+    padding: 16px;
+    min-width: 220px;
+    max-width: 260px;
+  }
+  
+  .treatment-icon {
+    font-size: 1.5rem;
+  }
+  
+  .treatment-text {
+    font-size: 14px;
+  }
+  
+  .treatment-highlight {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}
