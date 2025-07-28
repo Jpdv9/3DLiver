@@ -473,3 +473,89 @@ html,
 body {
   overflow-x: hidden;
 }
+
+/* 3D F Button Styles */
+.f-button-3d {
+  pointer-events: auto;
+  animation: floatAnimation 2s ease-in-out infinite;
+}
+
+.f-button-content {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-family: "Inter", "Arial", sans-serif;
+  text-align: center;
+  min-width: 140px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.f-key {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.f-text {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.f-stage {
+  font-size: 12px;
+  opacity: 0.9;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 4px 12px;
+  display: inline-block;
+}
+
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotateX(5deg);
+  }
+}
+
+/* Mobile responsiveness for F button */
+@media (max-width: 768px) {
+  .f-button-content {
+    padding: 12px;
+    min-width: 120px;
+  }
+  
+  .f-key {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+  
+  .f-text {
+    font-size: 12px;
+  }
+  
+  .f-stage {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+}

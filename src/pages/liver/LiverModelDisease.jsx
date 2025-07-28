@@ -31,7 +31,7 @@ function useResponsive() {
 }
 
 // Componente para el modelo 3D
-function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
+function Model({ path, showInstructions, position = [0, 1, 0], screenSize, diseaseStage, showTreatment, isHealthy }) {
   const { scene } = useGLTF(path)
   const modelRef = useRef()
   const [isRotating, setIsRotating] = useState(true)
@@ -39,6 +39,7 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
   const [modelPosition, setModelPosition] = useState(position)
   const [isHovered, setIsHovered] = useState(false)
   const [modelScale, setModelScale] = useState(1)
+  const [showFButton, setShowFButton] = useState(false)
 
   // Control de la rotación del modelo con la tecla "R"
   useEffect(() => {
@@ -63,6 +64,17 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
     window.addEventListener("keypress", handleKeyPress)
     return () => window.removeEventListener("keypress", handleKeyPress)
   }, [])
+
+  // Show F button hint for disease progression - ONLY for fatty liver, not healthy liver
+  useEffect(() => {
+    if (!showTreatment && !isHealthy && diseaseStage !== undefined) {
+      setShowFButton(true)
+      const timer = setTimeout(() => setShowFButton(false), 5000) // Hide after 5 seconds
+      return () => clearTimeout(timer)
+    } else {
+      setShowFButton(false)
+    }
+  }, [diseaseStage, showTreatment, isHealthy, path])
 
   useFrame(() => {
     if (modelRef.current && isRotating) {
@@ -174,7 +186,34 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize }) {
               <ul className="instructions-3d-list">
                 <li>• R: Activar/desactivar rotación</li>
                 <li>• WASD: Mover modelo</li>
+                {diseaseStage !== undefined && !showTreatment && !isHealthy && (
+                  <li>• F: Ver progreso de la enfermedad</li>
+                )}
               </ul>
+            </div>
+          </div>
+        </Html>
+      )}
+
+      {/* 3D Button for Disease Progression - Only for fatty liver, not healthy liver */}
+      {showFButton && diseaseStage !== undefined && !showTreatment && !isHealthy && (
+        <Html
+          position={[modelPosition[0] + 1.5, modelPosition[1] + 0.5, modelPosition[2]]}
+          distanceFactor={screenSize.isMobile ? 4 : 3}
+          occlude
+          transform
+        >
+          <div className="f-button-3d">
+            <div className="f-button-content">
+              <div className="f-key">F</div>
+              <div className="f-text">
+                {diseaseStage === 0 ? "Ver progreso" : 
+                 diseaseStage === 1 ? "Ver etapa final" : 
+                 "Volver al inicio"}
+              </div>
+              <div className="f-stage">
+                Etapa {diseaseStage + 1}/3
+              </div>
             </div>
           </div>
         </Html>
@@ -285,6 +324,8 @@ export default function LiverModel({
   modelPath = "/placeholder.svg?height=400&width=400",
   showHtmlInstructions = false,
   isHealthy = false,
+  diseaseStage,
+  showTreatment = false,
 }) {
   const screenSize = useResponsive()
   const [modelPosition, setModelPosition] = useState([0, 1, 0])
@@ -348,6 +389,9 @@ export default function LiverModel({
             showInstructions={showHtmlInstructions}
             position={modelPosition}
             screenSize={screenSize}
+            diseaseStage={diseaseStage}
+            showTreatment={showTreatment}
+            isHealthy={isHealthy}
           />
         </Canvas>
       </KeyboardControls>

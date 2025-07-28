@@ -13,6 +13,7 @@ export default function FattyLiver() {
   const [showHtmlInstructions, setShowHtmlInstructions] = useState(false)
   const [showTreatment, setShowTreatment] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [diseaseStage, setDiseaseStage] = useState(0) // 0: early, 1: moderate, 2: full
 
   const iconRef = useRef(null)
   const popoverRef = useRef(null)
@@ -26,20 +27,34 @@ export default function FattyLiver() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  // F key functionality to advance disease stages
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key.toLowerCase() === "f" && !isHealthy && !showTreatment) {
+        setDiseaseStage(prev => (prev + 1) % 3) // Cycle through 0, 1, 2
+      }
+    }
+    window.addEventListener("keydown", handleKeyPress)
+    return () => window.removeEventListener("keydown", handleKeyPress)
+  }, [isHealthy, showTreatment])
+
   const handleTreatmentToggle = () => {
     setShowTreatment(true)
     setIsHealthy(false)
+    setDiseaseStage(0)
   }
 
   const handleFatty = () => {
     setIsHealthy(false)
     setShowTreatment(false)
+    setDiseaseStage(0)
   }
 
   const handleHealthyLiver = () => {
     setIsHealthy(true)
     setShowInstructionsPopover(false)
     setShowTreatment(false)
+    setDiseaseStage(0)
   }
 
   const toggleInstructionsPopover = () => {
@@ -142,7 +157,27 @@ export default function FattyLiver() {
           </div>
         </div>
       )
-    }
+    },
+    {
+  id: "prevencion",
+  title: "Prevención",
+  icon: "🛡️",
+  content: (
+    <div className="lesson-content">
+      <div className="content-highlight">
+        <p>Mantener un estilo de vida saludable ayuda a prevenir el hígado graso.</p>
+      </div>
+      <div className="content-section">
+        <h4>✅ Recomendaciones:</h4>
+        <ul>
+          <li>• Evita el alcohol en exceso</li>
+          <li>• Mantén un peso saludable</li>
+          <li>• Realiza actividad física regular</li>
+        </ul>
+      </div>
+    </div>
+  )
+}
   ]
 
   return (
@@ -186,10 +221,16 @@ export default function FattyLiver() {
                 ? "/modelos/medicine/MedicineModel.glb"
                 : isHealthy
                 ? "/modelos/Liver/healthy-liver.glb"
-                : "/modelos/fattyliver/early-fatty-liver.glb"
+                : diseaseStage === 0
+                ? "/modelos/fattyliver/early-fatty-liver.glb"
+                : diseaseStage === 1
+                ? "/modelos/fattyliver/full-fatty-liver.glb"
+                : "/modelos/fattyliver/fatty-liver.glb"
             }
             showHtmlInstructions={showHtmlInstructions}
             isHealthy={isHealthy}
+            diseaseStage={diseaseStage}
+            showTreatment={showTreatment}
           />
         </div>
 
