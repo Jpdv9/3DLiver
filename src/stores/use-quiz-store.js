@@ -2,8 +2,8 @@ import { create } from "zustand";
 
 const useQuizStore = create((set) => ({
     quiz: {
-        correcAnswers: 0,
-        incorrectAnswers:0,
+        correctAnswers: 0,
+        incorrectAnswers: 0,
         percentageQuizCompleted: 0,
     },
 
@@ -18,10 +18,20 @@ const useQuizStore = create((set) => ({
             };
         }),
 
+    incrementCorrectAnswers: () =>
+        set((state) => ({
+            quiz: {...state.quiz, correctAnswers: state.quiz.correctAnswers + 1},
+        })),
+
+    incrementIncorrectAnswers: () =>
+        set((state) => ({
+            quiz: {...state.quiz, incorrectAnswers: state.quiz.incorrectAnswers + 1},
+        })),
+
     clearQuiz: () =>
         set({
             quiz: {
-                correcAnswers: 0,
+                correctAnswers: 0,
                 incorrectAnswers: 0,
                 percentageQuizCompleted: 0,
             },
