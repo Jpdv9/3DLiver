@@ -265,9 +265,9 @@ function HospitalRoom({ isHealthy, screenSize }) {
   return (
     <>
       {/* Iluminación de hospital */}
-      <ambientLight intensity={0.5} />
-      <rectAreaLight position={[0, 5, 0]} width={4} height={1} intensity={5} color="#f8f8ff" />
-      <directionalLight position={[5, 5, 5]} intensity={0.5} castShadow />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 5, 5]} intensity={0.8} castShadow />
+      <pointLight position={[2, 3, 2]} intensity={0.5} color="#ffffff" />
       
       {/* Suelo de hospital */}
       <Plane args={[20, 20]} rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
