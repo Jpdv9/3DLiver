@@ -240,6 +240,26 @@ function Model({ path, showInstructions, position = [0, 1, 0], screenSize, disea
         </Html>
       )}
 
+      {/* Treatment Message - Only shown during treatment */}
+      {showTreatment && (
+        <Html
+          position={[modelPosition[0], modelPosition[1] + 2, modelPosition[2]]}
+          distanceFactor={screenSize.isMobile ? 4 : 3}
+          occlude
+          transform
+        >
+          <div className="treatment-message-3d">
+            <div className="treatment-message-content">
+              
+              <div className="treatment-text">
+                Cambiar por hábitos saludables es el tratamiento más efectivo
+              
+              </div>
+            </div>
+          </div>
+        </Html>
+      )}
+
       {/* Hospital Ambient Sound - Triggered by clicking the model */}
       <PositionalAudio
         ref={audioRef}

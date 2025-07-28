@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import LiverModel from "../LiverModelDisease";
+import TreatmentStage from "./TreatmentStage";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import "./FattyLiver.css";
+import "./TreatmentStage.css";
 import "../controls.css";
 import { Text3D } from '@react-three/drei'
 
@@ -46,6 +48,10 @@ export default function FattyLiver() {
     setShowTreatment(true)
     setIsHealthy(false)
     setDiseaseStage(0)
+  }
+
+  const handleCloseTreatment = () => {
+    setShowTreatment(false)
   }
 
   const handleFatty = () => {
@@ -229,25 +235,27 @@ export default function FattyLiver() {
         )}
 
         <div className="fatty-model-container">
-          <LiverModel
-            modelPath={
-              showTreatment
-                ? "/modelos/medicine/MedicineModel.glb"
-                : isHealthy
-                ? "/modelos/Liver/healthy-liver.glb"
-                : diseaseStage === 0
-                ? "/modelos/fattyliver/early-fatty-liver.glb"
-                : diseaseStage === 1
-                ? "/modelos/fattyliver/full-fatty-liver.glb"
-                : "/modelos/fattyliver/fatty-liver.glb"
-            }
-           
-  
-            showHtmlInstructions={showHtmlInstructions}
-            isHealthy={isHealthy}
-            diseaseStage={diseaseStage}
-            showTreatment={showTreatment}
-          />
+          {showTreatment ? (
+            <TreatmentStage 
+              onCloseTreatment={handleCloseTreatment}
+            />
+          ) : (
+            <LiverModel
+              modelPath={
+                isHealthy
+                  ? "/modelos/Liver/healthy-liver.glb"
+                  : diseaseStage === 0
+                  ? "/modelos/fattyliver/early-fatty-liver.glb"
+                  : diseaseStage === 1
+                  ? "/modelos/fattyliver/full-fatty-liver.glb"
+                  : "/modelos/fattyliver/fatty-liver.glb"
+              }
+              showHtmlInstructions={showHtmlInstructions}
+              isHealthy={isHealthy}
+              diseaseStage={diseaseStage}
+              showTreatment={showTreatment}
+            />
+          )}
         </div>
 
         <div className="fatty-toggle-container">
