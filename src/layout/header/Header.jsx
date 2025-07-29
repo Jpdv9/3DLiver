@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router';
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/SupabaseAuthContext';
 import { useState } from 'react';
 import './Header.css';
 
@@ -60,6 +60,9 @@ const Header = ({ isMenuOpen, setIsMenuOpen }) => {
               </div>
               {showUserMenu && (
                 <div className='user-dropdown'>
+                  <NavLink to="/quiz-history" className='dropdown-link' onClick={() => setShowUserMenu(false)}>
+                    📊 Mi Historial
+                  </NavLink>
                   <button onClick={handleLogout} className='logout-button'>
                     <FiLogOut className='logout-icon'/>
                     Cerrar Sesión

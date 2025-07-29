@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/SupabaseAuthContext';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -8,6 +8,10 @@ const Login = () => {
   const [error, setError] = useState('');
   const { loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the page user was trying to access, default to home
+  const from = location.state?.from?.pathname || '/';
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -16,7 +20,8 @@ const Login = () => {
     try {
       const result = await loginWithGoogle();
       if (result.success) {
-        navigate('/quiz');
+        // Redirect to the page they were trying to access, or home
+        navigate(from, { replace: true });
       } else {
         setError(result.error);
       }

@@ -16,6 +16,7 @@
     "@react-icons/all-files": "^4.1.0",
     "@react-three/drei": "^10.5.1",
     "@react-three/fiber": "^9.1.2",
+    "@supabase/supabase-js": "^2.53.0",
     "firebase": "^11.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
