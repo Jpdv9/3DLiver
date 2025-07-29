@@ -1,8 +1,9 @@
-import { useAuth } from '../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/SupabaseAuthContext';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -33,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  return currentUser ? children : <Navigate to="/login" />;
+  return currentUser ? children : <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 export default ProtectedRoute;

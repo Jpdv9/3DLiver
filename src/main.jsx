@@ -4,6 +4,7 @@ import './index.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './pages/home/Home'
 import Quiz from './pages/quiz/Quiz'
+import QuizHistory from './pages/quiz/QuizHistory'
 import NotFound from './pages/not-found/NotFound'
 import Contact from './pages/contact/Contact'
 import Resources from './pages/resources/Resources'
@@ -16,7 +17,7 @@ import LiverCirrhosis from './pages/liver/liver-cirrhosis/LiverCirrhosis'
 import FattyLiver from './pages/liver/fatty-liver/FattyLiver'
 import Login from './pages/auth/Login'
 import ProtectedRoute from './components/ProtectedRoute'
-import { AuthProvider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/SupabaseAuthContext'
 
 
 createRoot(document.getElementById('root')).render(
@@ -35,6 +36,11 @@ createRoot(document.getElementById('root')).render(
                 <Route path='quiz' element = {
                   <ProtectedRoute>
                     <Quiz/>
+                  </ProtectedRoute>
+                }/>
+                <Route path='quiz-history' element = {
+                  <ProtectedRoute>
+                    <QuizHistory/>
                   </ProtectedRoute>
                 }/>
                 <Route path='contacto' element={<Contact/>}/>

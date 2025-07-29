@@ -3,6 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html } from '@react-three/drei';
 import './Quiz.css'
 import useQuizStore from '../../stores/use-quiz-store';
+import { useAuth } from '../../contexts/SupabaseAuthContext';
+import { saveQuizResult, testDatabaseConnection } from '../../services/supabaseQuizService';
 
 // 3D Liver Progress Model Component
 function LiverProgressModel({ correctAnswers, totalQuestions }) {
@@ -85,6 +87,7 @@ function LiverProgressModel({ correctAnswers, totalQuestions }) {
 
 const Quiz = () => {
     const { quiz, incrementQuizProgress, clearQuiz } = useQuizStore();
+    const { currentUser } = useAuth();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [showExplanation, setShowExplanation] = useState(false);
@@ -92,6 +95,8 @@ const Quiz = () => {
     const [userAnswers, setUserAnswers] = useState([]);
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [savingResult, setSavingResult] = useState(false);
+    const [resultSaved, setResultSaved] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -100,6 +105,17 @@ const Quiz = () => {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Test database connection on component mount
+    useEffect(() => {
+        const testDB = async () => {
+            const result = await testDatabaseConnection();
+            if (!result.success) {
+                console.error('⚠️ Database connection failed at component mount');
+            }
+        };
+        testDB();
     }, []);
 
     // Quiz questions about liver diseases
@@ -260,8 +276,93 @@ const Quiz = () => {
             setShowExplanation(false);
         } else {
             setQuizCompleted(true);
+            // Save quiz results if user is logged in
+            if (currentUser) {
+                saveQuizResults();
+            }
         }
-    }, [selectedAnswer, currentQuestion, questions]);
+    }, [selectedAnswer, currentQuestion, questions, currentUser]);
+
+    const saveQuizResults = async () => {
+        if (!currentUser) return;
+        
+        setSavingResult(true);
+        
+        const score = getScore();
+        const percentage = Math.round((score / questions.length) * 100);
+        
+        const quizData = {
+            score,
+            totalQuestions: questions.length,
+            percentage,
+            correctAnswers: score,
+            incorrectAnswers: questions.length - score,
+            userAnswers: userAnswers.map(answer => ({
+                questionId: answer.questionId,
+                question: answer.question,
+                selectedAnswer: answer.selectedAnswer,
+                isCorrect: answer.isCorrect
+            }))
+        };
+        
+        try {
+            console.log('🎯 === QUIZ COMPONENT SAVE ATTEMPT ===');
+            console.log('🔹 Current User Object:', currentUser);
+            console.log('🔹 User ID:', currentUser?.id);
+            console.log('🔹 User Email:', currentUser?.email);
+            console.log('🔹 User Properties:', Object.keys(currentUser || {}));
+            console.log('🔹 Quiz Data Structure:', quizData);
+            console.log('🔹 Quiz Data JSON:', JSON.stringify(quizData, null, 2));
+            console.log('=====================================');
+            
+            if (!currentUser) {
+                console.error('❌ No current user found, cannot save quiz');
+                return;
+            }
+            
+            if (!currentUser.id) {
+                console.error('❌ Current user has no ID property:', currentUser);
+                return;
+            }
+            
+            const result = await saveQuizResult(currentUser.id, {
+                ...quizData,
+                userEmail: currentUser.email || '',
+                userDisplayName: currentUser.user_metadata?.full_name || currentUser.email || ''
+            });
+            
+            console.log('🎯 === SAVE OPERATION COMPLETE ===');
+            console.log('🔹 Result object:', result);
+            console.log('🔹 Success:', result?.success);
+            console.log('🔹 Error:', result?.error);
+            console.log('🔹 Full Error Object:', result?.fullError);
+            console.log('==================================');
+            
+            if (result.success) {
+                setResultSaved(true);
+                console.log('✅ Quiz result saved successfully!');
+            } else {
+                console.error('❌ Failed to save quiz result:');
+                console.error('🔸 Error message:', result.error);
+                console.error('🔸 Full error object:', result.fullError);
+                console.error('🔸 Exception details:', result.exception);
+                
+                // Show user-friendly error message
+                alert(`Error saving quiz results: ${result.error}`);
+            }
+        } catch (error) {
+            console.error('💥 Exception in Quiz component save function:');
+            console.error('🔸 Error type:', error.constructor.name);
+            console.error('🔸 Error message:', error.message);
+            console.error('🔸 Error stack:', error.stack);
+            console.error('🔸 Full error:', error);
+            
+            // Show user-friendly error message
+            alert(`Unexpected error saving quiz: ${error.message}`);
+        } finally {
+            setSavingResult(false);
+        }
+    };
 
     const restartQuiz = () => {
         setCurrentQuestion(0);
@@ -270,6 +371,8 @@ const Quiz = () => {
         setQuizCompleted(false);
         setUserAnswers([]);
         setCorrectAnswersCount(0);
+        setSavingResult(false);
+        setResultSaved(false);
         clearQuiz();
     };
 
@@ -292,12 +395,63 @@ const Quiz = () => {
             <div className="quiz-container">
                 <div className="quiz-completed">
                     <h1>🎉 ¡Quiz Completado!</h1>
+                    
+                    {/* Save status indicator */}
+                    {currentUser && (
+                        <div className="save-status" style={{
+                            padding: '1rem',
+                            borderRadius: '10px',
+                            marginBottom: '1.5rem',
+                            textAlign: 'center',
+                            border: '2px solid',
+                            borderColor: savingResult ? '#f59e0b' : resultSaved ? '#10b981' : '#ef4444',
+                            backgroundColor: savingResult ? 'rgba(245, 158, 11, 0.1)' : resultSaved ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                            color: savingResult ? '#f59e0b' : resultSaved ? '#10b981' : '#ef4444'
+                        }}>
+                            {savingResult ? (
+                                <>
+                                    <div className="loading-spinner" style={{ 
+                                        width: '16px', 
+                                        height: '16px', 
+                                        display: 'inline-block', 
+                                        marginRight: '0.5rem',
+                                        border: '2px solid rgba(245, 158, 11, 0.3)',
+                                        borderTop: '2px solid #f59e0b'
+                                    }}></div>
+                                    Guardando resultados...
+                                </>
+                            ) : resultSaved ? (
+                                <>
+                                    ✅ Resultados guardados en tu perfil
+                                </>
+                            ) : (
+                                <>
+                                    ⚠️ Error al guardar resultados
+                                </>
+                            )}
+                        </div>
+                    )}
+
                     <div className="score-summary">
                         <h2>Tu puntuación: {getScore()}/{questions.length}</h2>
                         <div className="score-percentage">
                             {Math.round((getScore() / questions.length) * 100)}%
                         </div>
                         <p className="score-message">{getScoreMessage()}</p>
+                        
+                        {/* User info if logged in */}
+                        {currentUser && (
+                            <div style={{
+                                marginTop: '1rem',
+                                padding: '0.75rem',
+                                backgroundColor: 'rgba(42, 92, 130, 0.1)',
+                                borderRadius: '8px',
+                                fontSize: '0.9rem',
+                                color: '#1a4c72'
+                            }}>
+                                Resultado guardado para: {currentUser.displayName || currentUser.email}
+                            </div>
+                        )}
                     </div>
                     
                     <div className="answers-review">
